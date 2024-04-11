@@ -1,0 +1,12 @@
+export 'exercise/exercise_info_screen.dart';
+export 'auth/login/login_screen.dart';
+export 'circuit_training/circuit_training_screen.dart';
+export 'exercise/exercise_screen.dart';
+export 'premium/premium_screen.dart';
+export 'profile/profile_details_screen.dart';
+export 'profile/profile_screen.dart';
+export 'report/report_screen.dart';
+export 'statistics/statistics_screen.dart';
+export 'timeout_proccess/timeout_proccess_screen.dart';
+export 'training/training_screen.dart';
+export 'work_proccess/work_proccess_screen.dart';
