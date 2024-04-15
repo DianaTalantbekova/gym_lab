@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../infrastructure/gen/assets.gen.dart';
+import 'package:gym_labb/gen/assets.gen.dart';
 
 class ColorPicker extends StatelessWidget {
   const ColorPicker({
