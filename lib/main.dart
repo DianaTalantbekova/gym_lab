@@ -21,6 +21,5 @@ Future main() async {
       designSize: const Size(430, 932),
       builder: (BuildContext context, Widget? child) => const MyApp(),
     ),
-
   );
 }

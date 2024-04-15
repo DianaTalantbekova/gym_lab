@@ -1,4 +1,5 @@
 {
   "authorize": "authorize",
-  "forgotPassword": "forgot password ?"
+  "forgotPassword": "forgot password ?",
+  "findExercise": "Find exercise"
 }

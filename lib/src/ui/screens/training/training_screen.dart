@@ -12,8 +12,8 @@ import '../../widgets/gl_scaffold.dart';
 import '../../widgets/training_card.dart';
 import '../add_exercise/add_exercise_screen.dart';
 
-class TrainingPage extends StatelessWidget {
-  const TrainingPage({super.key});
+class TrainingScreen extends StatelessWidget {
+  const TrainingScreen({super.key});
 
   static const String route = "training";
 

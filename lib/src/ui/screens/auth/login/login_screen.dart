@@ -80,7 +80,7 @@ class LoginScreen extends StatelessWidget {
                     color: AppColors.blue,
                     text: "ВОЙТИ",
                     onPressed: () {
-                      context.goNamed(TrainingPage.route);
+                      context.goNamed(TrainingScreen.route);
                     },
                   ),
                   const Gap(16),

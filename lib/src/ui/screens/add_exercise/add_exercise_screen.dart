@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../infrastructure/gen/assets.gen.dart';
+import '../../../infrastructure/l10n/strings.dart';
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
 import '../../widgets/buttons.dart';
@@ -75,7 +76,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
           },
         ),
         title: Text(
-          "ДОБАВИТЬ УПРАЖНЕНИЕ",
+          Strings.of(context).addExercise,
           style: AppStyles.jost12Bold,
         ),
       ),
@@ -86,7 +87,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: GLTextFormField(
-                hintText: "Найти упражнение",
+                hintText: Strings.of(context).findExercise,
                 icon: Assets.icons.search.svg(),
                 onChanged: (value) {},
               ),

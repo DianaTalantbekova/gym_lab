@@ -68,7 +68,7 @@ class GLButton extends StatelessWidget {
         padding: EdgeInsets.zero,
       ),
       onPressed: onPressed,
-      child: Row(
+      child: Stack(
         children: [
           if (icon != null)
             Align(

@@ -1,4 +1,6 @@
 {
   "authorize": "Авторизоваться",
-  "forgotPassword": "Забыли пароль ?"
+  "forgotPassword": "Забыли пароль ?",
+  "addExercise": "ДОБАВИТЬ УПРАЖНЕНИЕ",
+  "findExercise": "Найти упражнение"
 }
