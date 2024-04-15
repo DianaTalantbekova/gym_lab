@@ -8,14 +8,14 @@ import '../../ui/screens/navigation/home_screen.dart';
 import '../../ui/screens/screens.dart';
 import '../../ui/screens/training/training_details_screen.dart';
 
-mixin AppRouter on State<MyApp> {
+class AppRouter  {
   static final _rootKey = GlobalKey<NavigatorState>();
   static final _trainingKey = GlobalKey<NavigatorState>();
   static final _historyKey = GlobalKey<NavigatorState>();
   static final _circuitTrainingKey = GlobalKey<NavigatorState>();
   static final _profileKey = GlobalKey<NavigatorState>();
 
-  final GoRouter router = GoRouter(
+  static GoRouter router = GoRouter(
     navigatorKey: _rootKey,
     debugLogDiagnostics: true,
     routes: [

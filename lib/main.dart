@@ -5,7 +5,6 @@ import 'package:gym_labb/src/app.dart';
 
 import 'di.dart';
 
-
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
