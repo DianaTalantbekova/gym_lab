@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../app.dart';
 import '../../ui/screens/add_exercise/add_exercise_screen.dart';
 import '../../ui/screens/auth/inital/inital_screens.dart';
 import '../../ui/screens/navigation/home_screen.dart';
 import '../../ui/screens/screens.dart';
 import '../../ui/screens/training/training_details_screen.dart';
 
-class AppRouter  {
+class AppRouter {
   static final _rootKey = GlobalKey<NavigatorState>();
   static final _trainingKey = GlobalKey<NavigatorState>();
   static final _historyKey = GlobalKey<NavigatorState>();

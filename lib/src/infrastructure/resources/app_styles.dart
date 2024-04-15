@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../gen/fonts.gen.dart';
+import 'package:gym_labb/gen/fonts.gen.dart';
 
 class AppStyles {
   static final TextStyle jost12 = GoogleFonts.jost(

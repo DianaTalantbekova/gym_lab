@@ -17,6 +17,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add.svg
   SvgGenImage get add => const SvgGenImage('assets/icons/add.svg');
 
+  $AssetsIconsAnotherIconsGen get anotherIcons =>
+      const $AssetsIconsAnotherIconsGen();
+  $AssetsIconsCalendarIconsGen get calendarIcons =>
+      const $AssetsIconsCalendarIconsGen();
   $AssetsIconsLoginGen get login => const $AssetsIconsLoginGen();
   $AssetsIconsNavigationGen get navigation => const $AssetsIconsNavigationGen();
   $AssetsIconsProfileGen get profile => const $AssetsIconsProfileGen();
@@ -24,6 +28,8 @@ class $AssetsIconsGen {
   /// File path: assets/icons/search.svg
   SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
 
+  $AssetsIconsStatsIconsGen get statsIcons => const $AssetsIconsStatsIconsGen();
+  $AssetsIconsTimerGen get timer => const $AssetsIconsTimerGen();
   $AssetsIconsTrainingGen get training => const $AssetsIconsTrainingGen();
 
   /// List of all assets
@@ -61,6 +67,8 @@ class $AssetsImagesGen {
 
   $AssetsImagesSubscriptionGen get subscription =>
       const $AssetsImagesSubscriptionGen();
+  $AssetsImagesTrainingImagesGen get trainingImages =>
+      const $AssetsImagesTrainingImagesGen();
 
   /// List of all assets
   List<AssetGenImage> get values => [
@@ -72,6 +80,44 @@ class $AssetsImagesGen {
         exercise2,
         muscles
       ];
+}
+
+class $AssetsIconsAnotherIconsGen {
+  const $AssetsIconsAnotherIconsGen();
+
+  /// File path: assets/icons/another_icons/Ellipse 224.png
+  AssetGenImage get ellipse224 =>
+      const AssetGenImage('assets/icons/another_icons/Ellipse 224.png');
+
+  /// File path: assets/icons/another_icons/gym_icon.png
+  AssetGenImage get gymIcon =>
+      const AssetGenImage('assets/icons/another_icons/gym_icon.png');
+
+  /// File path: assets/icons/another_icons/menu_icon.png
+  AssetGenImage get menuIcon =>
+      const AssetGenImage('assets/icons/another_icons/menu_icon.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [ellipse224, gymIcon, menuIcon];
+}
+
+class $AssetsIconsCalendarIconsGen {
+  const $AssetsIconsCalendarIconsGen();
+
+  /// File path: assets/icons/calendar_icons/calendar.png
+  AssetGenImage get calendar =>
+      const AssetGenImage('assets/icons/calendar_icons/calendar.png');
+
+  /// File path: assets/icons/calendar_icons/eclipse.png
+  AssetGenImage get eclipse =>
+      const AssetGenImage('assets/icons/calendar_icons/eclipse.png');
+
+  /// File path: assets/icons/calendar_icons/search_icon.png
+  AssetGenImage get searchIcon =>
+      const AssetGenImage('assets/icons/calendar_icons/search_icon.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [calendar, eclipse, searchIcon];
 }
 
 class $AssetsIconsLoginGen {
@@ -140,6 +186,57 @@ class $AssetsIconsProfileGen {
   List<SvgGenImage> get values => [down, message];
 }
 
+class $AssetsIconsStatsIconsGen {
+  const $AssetsIconsStatsIconsGen();
+
+  /// File path: assets/icons/stats_icons/down_blue.png
+  AssetGenImage get downBlue =>
+      const AssetGenImage('assets/icons/stats_icons/down_blue.png');
+
+  /// File path: assets/icons/stats_icons/down_white.png
+  AssetGenImage get downWhite =>
+      const AssetGenImage('assets/icons/stats_icons/down_white.png');
+
+  /// File path: assets/icons/stats_icons/up_blue.png
+  AssetGenImage get upBlue =>
+      const AssetGenImage('assets/icons/stats_icons/up_blue.png');
+
+  /// File path: assets/icons/stats_icons/up_white.png
+  AssetGenImage get upWhite =>
+      const AssetGenImage('assets/icons/stats_icons/up_white.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [downBlue, downWhite, upBlue, upWhite];
+}
+
+class $AssetsIconsTimerGen {
+  const $AssetsIconsTimerGen();
+
+  /// File path: assets/icons/timer/Group 8644.png
+  AssetGenImage get group8644 =>
+      const AssetGenImage('assets/icons/timer/Group 8644.png');
+
+  /// File path: assets/icons/timer/Group 8645.png
+  AssetGenImage get group8645 =>
+      const AssetGenImage('assets/icons/timer/Group 8645.png');
+
+  /// File path: assets/icons/timer/Group 86452.png
+  AssetGenImage get group86452 =>
+      const AssetGenImage('assets/icons/timer/Group 86452.png');
+
+  /// File path: assets/icons/timer/Group 8647.png
+  AssetGenImage get group8647 =>
+      const AssetGenImage('assets/icons/timer/Group 8647.png');
+
+  /// File path: assets/icons/timer/sound_max.png
+  AssetGenImage get soundMax =>
+      const AssetGenImage('assets/icons/timer/sound_max.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [group8644, group8645, group86452, group8647, soundMax];
+}
+
 class $AssetsIconsTrainingGen {
   const $AssetsIconsTrainingGen();
 
@@ -202,11 +299,26 @@ class $AssetsImagesSubscriptionGen {
   List<AssetGenImage> get values => [background, safety, support, training];
 }
 
+class $AssetsImagesTrainingImagesGen {
+  const $AssetsImagesTrainingImagesGen();
+
+  /// File path: assets/images/training_images/bench_press.png
+  AssetGenImage get benchPress =>
+      const AssetGenImage('assets/images/training_images/bench_press.png');
+
+  /// File path: assets/images/training_images/leg_spread.png
+  AssetGenImage get legSpread =>
+      const AssetGenImage('assets/images/training_images/leg_spread.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [benchPress, legSpread];
+}
+
 class Assets {
   Assets._();
 
-  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {

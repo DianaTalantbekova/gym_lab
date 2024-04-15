@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:gym_labb/gen/assets.gen.dart';
 
-import '../../../infrastructure/gen/assets.gen.dart';
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
 import '../../widgets/buttons.dart';
