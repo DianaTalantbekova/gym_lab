@@ -212,29 +212,33 @@ class $AssetsIconsStatsIconsGen {
 class $AssetsIconsTimerGen {
   const $AssetsIconsTimerGen();
 
-  /// File path: assets/icons/timer/Group 8644.png
-  AssetGenImage get group8644 =>
-      const AssetGenImage('assets/icons/timer/Group 8644.png');
-
-  /// File path: assets/icons/timer/Group 8645.png
-  AssetGenImage get group8645 =>
-      const AssetGenImage('assets/icons/timer/Group 8645.png');
-
-  /// File path: assets/icons/timer/Group 86452.png
-  AssetGenImage get group86452 =>
-      const AssetGenImage('assets/icons/timer/Group 86452.png');
-
-  /// File path: assets/icons/timer/Group 8647.png
-  AssetGenImage get group8647 =>
-      const AssetGenImage('assets/icons/timer/Group 8647.png');
+  /// File path: assets/icons/timer/play_mode.png
+  AssetGenImage get playMode =>
+      const AssetGenImage('assets/icons/timer/play_mode.png');
 
   /// File path: assets/icons/timer/sound_max.png
   AssetGenImage get soundMax =>
       const AssetGenImage('assets/icons/timer/sound_max.png');
 
+  /// File path: assets/icons/timer/stop_mode_blue.png
+  AssetGenImage get stopModeBlue =>
+      const AssetGenImage('assets/icons/timer/stop_mode_blue.png');
+
+  /// File path: assets/icons/timer/stop_mode_orange.png
+  AssetGenImage get stopModeOrange =>
+      const AssetGenImage('assets/icons/timer/stop_mode_orange.png');
+
+  /// File path: assets/icons/timer/time_add.png
+  AssetGenImage get timeAdd =>
+      const AssetGenImage('assets/icons/timer/time_add.png');
+
+  /// File path: assets/icons/timer/time_less.png
+  AssetGenImage get timeLess =>
+      const AssetGenImage('assets/icons/timer/time_less.png');
+
   /// List of all assets
   List<AssetGenImage> get values =>
-      [group8644, group8645, group86452, group8647, soundMax];
+      [playMode, soundMax, stopModeBlue, stopModeOrange, timeAdd, timeLess];
 }
 
 class $AssetsIconsTrainingGen {
