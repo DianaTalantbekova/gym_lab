@@ -10,13 +10,14 @@ class GLTextFormField extends StatelessWidget {
     this.initialValue,
     this.hintText,
     this.icon,
-    required this.onChanged,
+    required this.onChanged, this.validator,
   });
 
   final String? hintText;
   final Widget? icon;
   final String? initialValue;
   final ValueChanged<String> onChanged;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class GLTextFormField extends StatelessWidget {
             const Gap(32),
           Expanded(
             child: TextFormField(
+              validator: validator,
               initialValue: initialValue,
               onChanged: onChanged,
               cursorColor: AppColors.white,

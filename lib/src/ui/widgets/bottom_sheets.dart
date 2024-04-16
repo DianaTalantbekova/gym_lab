@@ -2,8 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/domain/entity/training_entity.dart';
+import 'package:gym_labb/src/ui/blocs/workout_bloc/workout_bloc.dart';
+import 'package:gym_labb/src/ui/screens/training/bloc/training_bloc.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
 import '../../infrastructure/resources/app_styles.dart';
@@ -14,6 +19,9 @@ import '../screens/training/widgets/keyboard_key.dart';
 
 class BottomSheets {
   static void showCreateTrainingModalBottomSheet(BuildContext context) {
+    final key = GlobalKey<FormState>();
+    late String name;
+    int color = 4284783081;
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -22,61 +30,108 @@ class BottomSheets {
       barrierColor: Colors.transparent,
       constraints: const BoxConstraints(maxHeight: 353),
       builder: (context) {
-        return Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(36),
-              topRight: Radius.circular(36),
-            ),
-            color: AppColors.modalBottomSheetColor,
-            border: Border.all(
-              width: 2,
-              strokeAlign: BorderSide.strokeAlignOutside,
-              color: AppColors.blue,
-            ),
-          ),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 30,
-              sigmaY: 30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 34),
-              child: Column(
-                children: [
-                  const Gap(28),
-                  Text(
-                    "Название тренировки",
-                    style: AppStyles.jost12,
-                  ),
-                  const Gap(16),
-                  GLTextFormField(
-                    onChanged: (value) {},
-                  ),
-                  const Gap(30),
-                  Text(
-                    "Цветовая маркировка",
-                    style: AppStyles.jost12,
-                  ),
-                  const Gap(16),
-                  ColorPicker(
-                    onSelected: (value) {},
-                  ),
-                  const Spacer(),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 217),
-                    child: GLButton(
-                      color: AppColors.blue,
-                      text: "СОХРАНИТЬ",
-                      onPressed: () {},
+        return BlocProvider(
+          create: (context) => WorkoutBloc(),
+          child: Builder(builder: (context) {
+            return Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(36),
+                  topRight: Radius.circular(36),
+                ),
+                color: AppColors.modalBottomSheetColor,
+                border: Border.all(
+                  width: 2,
+                  strokeAlign: BorderSide.strokeAlignOutside,
+                  color: AppColors.blue,
+                ),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 30,
+                  sigmaY: 30,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 34),
+                  child: Form(
+                    key: key,
+                    child: Column(
+                      children: [
+                        const Gap(28),
+                        Text(
+                          "Название тренировки",
+                          style: AppStyles.jost12,
+                        ),
+                        const Gap(16),
+                        GLTextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Заполните это поле!';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            name = value;
+                          },
+                        ),
+                        const Gap(30),
+                        Text(
+                          "Цветовая маркировка",
+                          style: AppStyles.jost12,
+                        ),
+                        const Gap(16),
+                        ColorPicker(
+                          onSelected: (value) {
+                            color = value;
+                            print(color);
+                          },
+                        ),
+                        const Spacer(),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 217),
+                          child: BlocConsumer<WorkoutBloc, WorkoutState>(
+                            builder: (context, state) {
+                              return GLButton(
+                                color: AppColors.blue,
+                                text: "СОХРАНИТЬ",
+                                loading: state.isLoading,
+                                onPressed: () {
+                                  if (key.currentState?.validate() == true) {
+                                    context.read<WorkoutBloc>().add(
+                                          WorkoutEvent.create(
+                                            name: name,
+                                            color: color,
+                                          ),
+                                        );
+                                  }
+                                },
+                              );
+                            },
+                            listener:
+                                (BuildContext context, WorkoutState state) {
+                              if (state.name != null) {
+                                context.read<TrainingBloc>().add(
+                                      TrainingEvent.addNewTraining(
+                                        newTraining: TrainingEntity(
+                                          name: state.name!,
+                                          color: state.color!,
+                                        ),
+                                      ),
+                                    );
+                                context.pop();
+                              }
+                            },
+                          ),
+                        ),
+                        const Gap(48),
+                      ],
                     ),
                   ),
-                  const Gap(48),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          }),
         );
       },
     );
@@ -265,7 +320,8 @@ class BottomSheets {
     );
   }
 
-  static void showKeyboardModalBottomSheet(BuildContext context, VoidCallback onClose) {
+  static void showKeyboardModalBottomSheet(
+      BuildContext context, VoidCallback onClose) {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -276,7 +332,8 @@ class BottomSheets {
       builder: (context) {
         return Container(
           clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(color: AppColors.modalBottomSheetColor),
+          decoration:
+              const BoxDecoration(color: AppColors.modalBottomSheetColor),
           child: BackdropFilter(
             filter: ImageFilter.blur(
               sigmaX: 30,
@@ -314,7 +371,7 @@ class BottomSheets {
                           KeyboardKey(text: "7"),
                         ],
                       ),
-                       const Column(
+                      const Column(
                         children: [
                           KeyboardKey(text: "2"),
                           Gap(8),
@@ -351,10 +408,9 @@ class BottomSheets {
         );
       },
     ).then(
-          (value) {
+      (value) {
         onClose();
       },
     );
   }
-
 }

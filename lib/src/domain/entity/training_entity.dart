@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class TrainingEntity {
   final String name;
-  final Color color;
+  final int color;
   final List<ExerciseEntity>? exercises;
-  final DateTime day;
+  // final DateTime day;
 
   TrainingEntity({
     required this.name,
     required this.color,
-    required this.day,
+    // required this.day,
     this.exercises,
   });
 }
