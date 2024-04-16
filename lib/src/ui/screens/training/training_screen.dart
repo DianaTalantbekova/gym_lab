@@ -50,38 +50,47 @@ class _TrainingScreenState extends State<TrainingScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          const Gap(12),
-          Expanded(
-            child: BlocBuilder<TrainingBloc, TrainingState>(
-              builder: (context, state) {
-                return ListView.builder(
-                  itemCount: state.trainings.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        TrainingCard(
-                          item: state.trainings[index],
-                        ),
-                        const Gap(16)
-                      ],
-                    );
-                  },
-                );
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<TrainingBloc>().add(const TrainingEvent.started(isRefresh: true));
+        },
+        child: Column(
+          children: [
+            const Gap(12),
+            Expanded(
+              child: BlocBuilder<TrainingBloc, TrainingState>(
+                builder: (context, state) {
+                  return state.isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          itemCount: state.trainings.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                TrainingCard(
+                                  item: state.trainings[index],
+                                ),
+                                const Gap(16)
+                              ],
+                            );
+                          },
+                        );
+                },
+              ),
+            ),
+            const Gap(16),
+            GLButton(
+              color: AppColors.blue,
+              text: "СОЗДАТЬ НОВУЮ ТРЕНИРОВКУ",
+              onPressed: () {
+                BottomSheets.showCreateTrainingModalBottomSheet(context);
               },
             ),
-          ),
-          const Gap(16),
-          GLButton(
-            color: AppColors.blue,
-            text: "СОЗДАТЬ НОВУЮ ТРЕНИРОВКУ",
-            onPressed: () {
-              BottomSheets.showCreateTrainingModalBottomSheet(context);
-            },
-          ),
-          const Gap(32),
-        ],
+            const Gap(32),
+          ],
+        ),
       ),
     );
   }

@@ -15,9 +15,9 @@ part 'training_bloc.freezed.dart';
 class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
   TrainingBloc() : super(const TrainingState.initial(trainings: [])) {
     on<Started>((event, emit) async {
-      emit(state.copyWith(isLoading: true));
+      emit(state.copyWith(isLoading: !event.isRefresh));
       await Future.delayed(const Duration(seconds: 1)); //firebase
-      emit(state.copyWith(trainings: [
+      emit(state.copyWith(isLoading: false, trainings: [
         TrainingEntity(
           name: 'плечи',
           color: 4286743219,

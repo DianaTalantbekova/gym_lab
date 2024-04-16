@@ -12,7 +12,8 @@ import 'buttons.dart';
 
 class TrainingCard extends StatelessWidget {
   const TrainingCard({
-    super.key, required this.item,
+    super.key,
+    required this.item,
   });
 
   final TrainingEntity item;
@@ -20,7 +21,7 @@ class TrainingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         context.pushNamed(TrainingDetailsScreen.route);
       },
       child: Container(
@@ -48,7 +49,12 @@ class TrainingCard extends StatelessWidget {
             const Spacer(),
             GLIconButton(
               icon: Assets.icons.training.more.svg(),
-              onTap: (){BottomSheets.showEditTrainingModalBottomSheet(context);},
+              onTap: () {
+                BottomSheets.showEditTrainingModalBottomSheet(
+                  context,
+                  item,
+                );
+              },
             ),
             const Gap(32),
           ],

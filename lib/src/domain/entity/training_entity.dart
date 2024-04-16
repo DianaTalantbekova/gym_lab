@@ -4,12 +4,12 @@ class TrainingEntity {
   final String name;
   final int color;
   final List<ExerciseEntity>? exercises;
-  // final DateTime day;
+  final DateTime? day;
 
   TrainingEntity({
     required this.name,
     required this.color,
-    // required this.day,
+     this.day,
     this.exercises,
   });
 }

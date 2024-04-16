@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +14,7 @@ import 'package:gym_labb/src/ui/screens/training/bloc/training_bloc.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
 import '../../infrastructure/resources/app_styles.dart';
+import '../screens/training/widgets/custom_text_form_field.dart';
 import 'buttons.dart';
 import 'color_picker.dart';
 import 'gl_text_form_field.dart';
@@ -21,7 +24,9 @@ class BottomSheets {
   static void showCreateTrainingModalBottomSheet(BuildContext context) {
     final key = GlobalKey<FormState>();
     late String name;
-    int color = 4284783081;
+    ValueNotifier<String> validateError = ValueNotifier<String>("");
+    ValueNotifier<int> selectedColor = ValueNotifier<int>(4284783081);
+
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -64,9 +69,10 @@ class BottomSheets {
                           style: AppStyles.jost12,
                         ),
                         const Gap(16),
-                        GLTextFormField(
+                        CustomTextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
+                              validateError.value = 'Заполните это поле!';
                               return 'Заполните это поле!';
                             }
                             return null;
@@ -75,16 +81,40 @@ class BottomSheets {
                             name = value;
                           },
                         ),
-                        const Gap(30),
+                        const Gap(5),
+                        ValueListenableBuilder(
+                            valueListenable: validateError,
+                            builder: (BuildContext context, String value,
+                                Widget? child) {
+                              if (value.isNotEmpty) {
+                                return Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    value,
+                                    style: AppStyles.jost12.copyWith(
+                                      color: AppColors.red,
+                                    ),
+                                  ),
+                                );
+                              }
+                              return const SizedBox();
+                            }),
+                        const Gap(25),
                         Text(
                           "Цветовая маркировка",
                           style: AppStyles.jost12,
                         ),
                         const Gap(16),
-                        ColorPicker(
-                          onSelected: (value) {
-                            color = value;
-                            print(color);
+                        ValueListenableBuilder(
+                          valueListenable: selectedColor,
+                          builder:
+                              (BuildContext context, int value, Widget? child) {
+                            return ColorPicker(
+                              onSelected: (value) {
+                                selectedColor.value = value;
+                              },
+                              selectedColor: selectedColor.value,
+                            );
                           },
                         ),
                         const Spacer(),
@@ -101,7 +131,7 @@ class BottomSheets {
                                     context.read<WorkoutBloc>().add(
                                           WorkoutEvent.create(
                                             name: name,
-                                            color: color,
+                                            color: selectedColor.value,
                                           ),
                                         );
                                   }
@@ -245,7 +275,12 @@ class BottomSheets {
     );
   }
 
-  static void showEditTrainingModalBottomSheet(BuildContext context) {
+  static void showEditTrainingModalBottomSheet(
+    BuildContext context,
+    TrainingEntity item,
+  ) {
+    ValueNotifier<int> selectedColor = ValueNotifier<int>(item.color);
+
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -287,7 +322,7 @@ class BottomSheets {
                     ),
                   ),
                   Text(
-                    "ГРУДЬ , БИЦЕПС",
+                    item.name,
                     style: AppStyles.jost12Bold,
                   ),
                   const Gap(32),
@@ -296,8 +331,16 @@ class BottomSheets {
                     style: AppStyles.jost12,
                   ),
                   const Gap(16),
-                  ColorPicker(
-                    onSelected: (value) {},
+                  ValueListenableBuilder(
+                    valueListenable: selectedColor,
+                    builder: (BuildContext context, int value, Widget? child) {
+                      return ColorPicker(
+                        onSelected: (value) {
+                          selectedColor.value = value;
+                        },
+                        selectedColor: selectedColor.value,
+                      );
+                    },
                   ),
                   const Gap(32),
                   ActionButton(
