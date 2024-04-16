@@ -1,5 +1,7 @@
 {
-  "authorize": "authorize",
-  "forgotPassword": "forgot password ?",
+  "@@locale": "en",
+  "authorize": "Authorize",
+  "forgotPassword": "Forgot password ?",
+  "addExercise": "ADD EXERCISE",
   "findExercise": "Find exercise"
 }
