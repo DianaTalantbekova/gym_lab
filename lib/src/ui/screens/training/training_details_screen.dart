@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
@@ -43,19 +44,19 @@ class TrainingDetailsScreen extends StatelessWidget {
           ExerciseCard(
             isExpanded: true,
             image: Assets.images.exercise1.provider(),
-            name: "ЖИМ ЛЕЖА",
+            name: Strings.of(context).benchPress,
             sets: 4,
           ),
           const Gap(16),
           ExerciseCard(
             image: Assets.images.exercise2.provider(),
-            name: "РАЗВЕДЕНИЕ НОГ",
+            name: Strings.of(context).legSpread,
             sets: 4,
           ),
           const Spacer(),
           GLButton(
             color: AppColors.blue,
-            text: "НАЧАТЬ ТРЕНИРОВКУ",
+            text: Strings.of(context).startTraining,
             onPressed: () {},
           ),
         ],
@@ -131,7 +132,8 @@ class _ExerciseCardState extends State<ExerciseCard> {
                             .copyWith(color: AppColors.white),
                       ),
                       TextSpan(
-                        text: "${widget.sets} подхода",
+                        text:
+                            "${widget.sets} ${Strings.of(context).approaches}",
                         style:
                             AppStyles.jost12.copyWith(color: AppColors.white),
                       ),
@@ -182,7 +184,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                         child: Column(
                           children: [
                             Text(
-                              "ПОВТОРЕНИЯ",
+                              Strings.of(context).repeats,
                               style: AppStyles.jost12,
                             ),
                             for (int i = 0; i < 4; i++) ...[
@@ -199,7 +201,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                           Opacity(
                             opacity: fade ? 0.3 : 1,
                             child: Text(
-                              "ВЕС ( КГ )",
+                              Strings.of(context).weightKG,
                               style: AppStyles.jost12,
                             ),
                           ),
@@ -241,7 +243,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                           Opacity(
                             opacity: fade ? 0.3 : 1,
                             child: Text(
-                              "СЛОЖНОСТЬ",
+                              Strings.of(context).difficulty,
                               style: AppStyles.jost12,
                             ),
                           ),
@@ -304,7 +306,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                       children: [
                         ActionButton(
                           icon: Assets.icons.add.svg(),
-                          text: "Подход",
+                          text: Strings.of(context).approach,
                           onTap: () {},
                         ),
                         const Spacer(),

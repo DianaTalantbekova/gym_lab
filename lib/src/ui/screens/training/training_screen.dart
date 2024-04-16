@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 import 'package:gym_labb/src/ui/screens/training/training_details_screen.dart';
 
 import '../../../infrastructure/resources/app_colors.dart';
@@ -29,7 +30,7 @@ class TrainingScreen extends StatelessWidget {
                 text: "LAB ",
                 style: AppStyles.jost12Bold.copyWith(color: AppColors.blue),
               ),
-              const TextSpan(text: "/ ТРЕНИРОВКИ"),
+              TextSpan(text: "/ ${Strings.of(context).workouts}"),
             ],
             style: AppStyles.jost12Bold,
           ),
@@ -62,7 +63,7 @@ class TrainingScreen extends StatelessWidget {
           const Spacer(),
           GLButton(
             color: AppColors.blue,
-            text: "СОЗДАТЬ НОВУЮ ТРЕНИРОВКУ",
+            text: Strings.of(context).createNewWorkout,
             onPressed: () {
               BottomSheets.showCreateTrainingModalBottomSheet(context);
             },

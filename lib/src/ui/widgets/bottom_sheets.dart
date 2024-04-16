@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
 import '../../infrastructure/resources/app_styles.dart';
@@ -47,7 +48,7 @@ class BottomSheets {
                 children: [
                   const Gap(28),
                   Text(
-                    "Название тренировки",
+                    Strings.of(context).trainingName,
                     style: AppStyles.jost12,
                   ),
                   const Gap(16),
@@ -56,7 +57,7 @@ class BottomSheets {
                   ),
                   const Gap(30),
                   Text(
-                    "Цветовая маркировка",
+                    Strings.of(context).colorMarking,
                     style: AppStyles.jost12,
                   ),
                   const Gap(16),
@@ -68,7 +69,7 @@ class BottomSheets {
                     constraints: const BoxConstraints(maxWidth: 217),
                     child: GLButton(
                       color: AppColors.blue,
-                      text: "СОХРАНИТЬ",
+                      text: Strings.of(context).save,
                       onPressed: () {},
                     ),
                   ),
@@ -265,7 +266,8 @@ class BottomSheets {
     );
   }
 
-  static void showKeyboardModalBottomSheet(BuildContext context, VoidCallback onClose) {
+  static void showKeyboardModalBottomSheet(
+      BuildContext context, VoidCallback onClose) {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -276,7 +278,8 @@ class BottomSheets {
       builder: (context) {
         return Container(
           clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(color: AppColors.modalBottomSheetColor),
+          decoration:
+              const BoxDecoration(color: AppColors.modalBottomSheetColor),
           child: BackdropFilter(
             filter: ImageFilter.blur(
               sigmaX: 30,
@@ -314,7 +317,7 @@ class BottomSheets {
                           KeyboardKey(text: "7"),
                         ],
                       ),
-                       const Column(
+                      const Column(
                         children: [
                           KeyboardKey(text: "2"),
                           Gap(8),
@@ -351,10 +354,9 @@ class BottomSheets {
         );
       },
     ).then(
-          (value) {
+      (value) {
         onClose();
       },
     );
   }
-
 }

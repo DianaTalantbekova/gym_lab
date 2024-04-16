@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 import 'package:gym_labb/src/ui/widgets/stats_table.dart';
 
 class MoreStatBox extends StatelessWidget {
@@ -52,7 +53,7 @@ class MoreStatBox extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'ЖИМ ЛЕЖА',
+                      Strings.of(context).benchPress,
                       style: GoogleFonts.jost(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -60,7 +61,7 @@ class MoreStatBox extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '4 подхода',
+                      '4 ${Strings.of(context).approaches}',
                       style: GoogleFonts.jost(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -94,7 +95,7 @@ class MoreStatBox extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '7092 кг',
+                              '7092 ${Strings.of(context).kg}',
                               style: GoogleFonts.jost(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
@@ -102,7 +103,7 @@ class MoreStatBox extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              ' общий вес',
+                              ' ${Strings.of(context).totalWeight}',
                               style: GoogleFonts.jost(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -148,7 +149,7 @@ class MoreStatBox extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'всего повторений',
+                            Strings.of(context).totalReps,
                             style: GoogleFonts.jost(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,

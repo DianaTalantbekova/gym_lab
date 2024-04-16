@@ -13,7 +13,7 @@ class AppRouter {
   static final _historyKey = GlobalKey<NavigatorState>();
   static final _circuitTrainingKey = GlobalKey<NavigatorState>();
   static final _profileKey = GlobalKey<NavigatorState>();
-
+  
   static GoRouter router = GoRouter(
     navigatorKey: _rootKey,
     debugLogDiagnostics: true,
@@ -133,6 +133,4 @@ class AppRouter {
       ),
     ],
   );
-
-  GoRouter get routerConfig => router;
 }

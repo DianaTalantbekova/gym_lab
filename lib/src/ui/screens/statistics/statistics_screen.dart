@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../widgets/buttons.dart';
 import '../../widgets/gl_app_bar.dart';
@@ -18,7 +19,7 @@ class StatisticsScreen extends StatelessWidget {
     return GLScaffold(
       appBar: GLAppBar(
         title: Text(
-          'СТАТИСТИКА',
+          Strings.of(context).statistics,
           style: GoogleFonts.jost(
             fontSize: 12,
             fontWeight: FontWeight.w700,
@@ -37,7 +38,7 @@ class StatisticsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'ТРЕНИРОВКА : ГРУДЬ , БИЦЕПС',
+                  '${Strings.of(context).training} : ГРУДЬ , БИЦЕПС',
                   style: GoogleFonts.jost(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -48,14 +49,14 @@ class StatisticsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             GLButton(
-              text: "ПОСМОТРЕТЬ ОТЧЕТ",
+              text: Strings.of(context).viewTheReport,
               onPressed: () {
                 context.pushNamed(ReportScreen.route);
               },
             ),
             const SizedBox(height: 16),
             GLButton(
-              text: "УДАЛИТЬ ИСТОРИЮ",
+              text: Strings.of(context).removeHistory,
               onPressed: () {},
             ),
           ],

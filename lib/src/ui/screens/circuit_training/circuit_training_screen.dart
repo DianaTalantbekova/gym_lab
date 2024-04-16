@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../widgets/buttons.dart';
@@ -20,7 +21,7 @@ class CircuitTrainingScreen extends StatelessWidget {
     return GLScaffold(
       appBar: GLAppBar(
         title: Text(
-          'КРУГОВАЯ ТРЕНИРОВКА',
+          Strings.of(context).circuitTraining,
           style: GoogleFonts.jost(
             fontSize: 12,
             fontWeight: FontWeight.w700,
@@ -36,7 +37,7 @@ class CircuitTrainingScreen extends StatelessWidget {
             const Spacer(),
             GLButton(
               color: AppColors.blue,
-              text: "НАЧАТЬ ТРЕНИРОВКУ",
+              text: Strings.of(context).startTraining,
               onPressed: () {
                 context.pushNamed(WorkProcessScreen.route);
               },

@@ -61,49 +61,52 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   const Spacer(flex: 2),
                   Text(
-                    "ВХОД В АККАУНТ",
+                    Strings.of(context).loginToAccount,
                     textAlign: TextAlign.center,
                     style: AppStyles.jost14Bold,
                   ),
                   const Gap(32),
                   GLTextFormField(
-                    hintText: "E-mail",
+                    hintText: Strings.of(context).email,
                     onChanged: (value) {},
                   ),
                   const Gap(16),
                   GLTextFormField(
-                    hintText: "Пароль",
+                    hintText: Strings.of(context).password,
                     onChanged: (value) {},
                   ),
                   const Gap(32),
                   GLButton(
                     color: AppColors.blue,
-                    text: "ВОЙТИ",
+                    text: Strings.of(context).login,
                     onPressed: () {
                       context.goNamed(TrainingScreen.route);
                     },
                   ),
                   const Gap(16),
                   Text(
-                    "ИЛИ",
+                    Strings.of(context).or,
                     textAlign: TextAlign.center,
                     style: AppStyles.jost12Bold,
                   ),
                   const Gap(16),
                   GLButton(
-                    text: "ВОЙТИ ЧЕРЕЗ Apple ID",
-                    icon: SvgPicture.asset('assets/icons/login/apple.svg', color: Colors.white,),
+                    text: Strings.of(context).signInWithAppleID,
+                    icon: SvgPicture.asset(
+                      'assets/icons/login/apple.svg',
+                      color: Colors.white,
+                    ),
                     onPressed: () {},
                   ),
                   const Gap(16),
                   GLButton(
-                    text: "ВОЙТИ ЧЕРЕЗ Google",
+                    text: Strings.of(context).signInWithGoogle,
                     icon: Assets.icons.login.google.svg(),
                     onPressed: () {},
                   ),
                   const Gap(16),
                   GLButton(
-                    text: "ВОЙТИ ЧЕРЕЗ E-mail",
+                    text: Strings.of(context).signInWithEmail,
                     icon: Assets.icons.login.email.svg(),
                     onPressed: () {},
                   ),
