@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
@@ -26,7 +27,7 @@ class ExerciseInfoScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          "ДЕТАЛИ ТРЕНИРОВКИ",
+          Strings.of(context).trainingDetails,
           style: AppStyles.jost12Bold,
         ),
       ),
@@ -62,7 +63,7 @@ class ExerciseInfoScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "ЖИМ ЛЕЖА",
+                          Strings.of(context).benchPress,
                           style: AppStyles.jost14Bold,
                         ),
                         const Gap(16),
@@ -72,7 +73,7 @@ class ExerciseInfoScreen extends StatelessWidget {
                             fit: StackFit.expand,
                             children: [
                               Text(
-                                "Выполняющий упражнение ложится на скамью, опускает гриф штанги до касания с грудью и поднимает до полного вып...",
+                                Strings.of(context).benchPressDescr,
                                 maxLines: 3,
                                 style: AppStyles.jost12,
                               ),
@@ -82,7 +83,7 @@ class ExerciseInfoScreen extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Text(
-                                      "Читать далее",
+                                      Strings.of(context).readMore,
                                       style: AppStyles.jost12.copyWith(
                                           color:
                                               AppColors.white.withOpacity(0.3)),
@@ -103,11 +104,11 @@ class ExerciseInfoScreen extends StatelessWidget {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "СНАРЯЖЕНИЕ : ",
+                                text: "${Strings.of(context).equipment} : ",
                                 style: AppStyles.jost14Bold,
                               ),
                               TextSpan(
-                                text: "Гриф",
+                                text: Strings.of(context).barbell,
                                 style: AppStyles.jost12,
                               ),
                             ],
@@ -118,15 +119,17 @@ class ExerciseInfoScreen extends StatelessWidget {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "ГРУППА МЫШЦ :\n",
+                                text: "${Strings.of(context).muscleGroup}\n",
                                 style: AppStyles.jost14Bold,
                               ),
                               TextSpan(
-                                text: "Грудные мышцы ( первичные )\n",
+                                text:
+                                    "${Strings.of(context).pectoralMusclesPrimary}\n",
                                 style: AppStyles.jost12,
                               ),
                               TextSpan(
-                                text: "Трицепс, плечи ( вторичные )",
+                                text: Strings.of(context)
+                                    .tricepsShouldersSecondary,
                                 style: AppStyles.jost12,
                               ),
                             ],

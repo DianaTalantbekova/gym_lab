@@ -110,25 +110,25 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
                 ),
               ),
               dividerHeight: 0,
-              tabs: const [
+              tabs: [
                 Tab(
-                  text: "ВСЕ",
+                  text: Strings.of(context).all,
                   height: 17,
                 ),
                 Tab(
-                  text: "ГРУДЬ",
+                  text: Strings.of(context).chest,
                   height: 17,
                 ),
                 Tab(
-                  text: "СПИНА",
+                  text: Strings.of(context).back,
                   height: 17,
                 ),
                 Tab(
-                  text: "БИЦЕПС",
+                  text: Strings.of(context).biceps,
                   height: 17,
                 ),
                 Tab(
-                  text: "ПРЕСС",
+                  text: Strings.of(context).press,
                   height: 17,
                 ),
               ],
@@ -222,7 +222,7 @@ class AddExerciseButton extends StatelessWidget {
               ),
               const Gap(12),
               Text(
-                "Добавить упражнение",
+                Strings.of(context).addExerciseLC,
                 style: AppStyles.jost12,
               ),
             ],
@@ -265,7 +265,7 @@ class ExerciseList extends StatelessWidget {
               image: index % 2 != 0
                   ? Assets.images.exercise1.provider()
                   : Assets.images.exercise2.provider(),
-              name: "ЖИМ ЛЕЖА",
+              name: Strings.of(context).benchPress,
               sets: 4,
             );
           },
@@ -323,7 +323,7 @@ class ExerciseCard extends StatelessWidget {
                       color: isSelected ? AppColors.blue : AppColors.white),
                 ),
                 TextSpan(
-                  text: "$sets подхода",
+                  text: "$sets ${Strings.of(context).approaches}",
                   style: AppStyles.jost12.copyWith(
                       color: isSelected ? AppColors.blue : AppColors.white),
                 ),

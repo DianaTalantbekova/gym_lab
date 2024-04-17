@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 import 'package:gym_labb/src/ui/blocs/workout_bloc/workout_bloc.dart';
 import 'package:gym_labb/src/ui/screens/training/training_details_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +45,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 text: "LAB ",
                 style: AppStyles.jost12Bold.copyWith(color: AppColors.blue),
               ),
-              const TextSpan(text: "/ ТРЕНИРОВКИ"),
+              TextSpan(text: "/ ${Strings.of(context).workouts}"),
             ],
             style: AppStyles.jost12Bold,
           ),

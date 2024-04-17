@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
 import 'buttons.dart';
@@ -41,7 +42,7 @@ class GLBottomActionBar extends StatelessWidget {
               child: Opacity(
                 opacity: 1,
                 child: GLButton(
-                  text: "СУПЕРСЕТ",
+                  text: Strings.of(context).superset,
                   onPressed: onSupersetTap,
                 ),
               ),
@@ -52,7 +53,7 @@ class GLBottomActionBar extends StatelessWidget {
                 opacity: 1,
                 child: GLButton(
                   color: AppColors.blue,
-                  text: "ДОБАВИТЬ (4)",
+                  text: "${Strings.of(context).add} (4)",
                   onPressed: onAddTap,
                 ),
               ),

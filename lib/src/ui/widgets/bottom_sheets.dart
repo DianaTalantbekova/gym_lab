@@ -11,6 +11,7 @@ import 'package:gym_labb/gen/assets.gen.dart';
 import 'package:gym_labb/src/domain/entity/training_entity.dart';
 import 'package:gym_labb/src/ui/blocs/workout_bloc/workout_bloc.dart';
 import 'package:gym_labb/src/ui/screens/training/bloc/training_bloc.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
 import '../../infrastructure/resources/app_styles.dart';

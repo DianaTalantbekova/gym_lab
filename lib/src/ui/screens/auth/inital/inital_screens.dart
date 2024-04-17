@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../../../infrastructure/resources/app_colors.dart';
 import '../../../../infrastructure/resources/app_styles.dart';
@@ -50,7 +51,7 @@ class InitialScreen extends StatelessWidget {
                 GLButton(
                   blur: true,
                   color: AppColors.blue,
-                  text: "ВОЙТИ",
+                  text: Strings.of(context).login,
                   onPressed: () {
                     context.pushNamed(LoginScreen.route);
                   },
@@ -58,7 +59,7 @@ class InitialScreen extends StatelessWidget {
                 const Gap(16),
                 GLButton(
                   blur: true,
-                  text: "ЗАРЕГИСТРИРОВАТЬСЯ",
+                  text: Strings.of(context).register,
                   onPressed: () {},
                 ),
                 const Gap(73),
