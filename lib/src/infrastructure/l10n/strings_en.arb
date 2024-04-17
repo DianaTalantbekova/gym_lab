@@ -95,5 +95,10 @@
   "benefit33": "BENEFIT 33%",
   "subscriptionForMonth": "MONTHLY SUBSCRIPTION",
   "restoreSubscription": "Restore subscription",
-  "rubMonth": "r./mon."
+  "rubMonth": "r./mon.",
+  "pauseTheWorkoutIfIExitTheApp": "Pause the workout if I exit the app",
+  "now": "now",
+  "exercise": "EXERCISE",
+  "circle": "CIRCLE",
+  "next": "next"
 }

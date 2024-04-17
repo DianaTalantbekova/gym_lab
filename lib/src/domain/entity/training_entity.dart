@@ -43,18 +43,18 @@ class ExerciseEntity {
   final List<ExerciseType> exerciseType;
   final String name;
   final String imageUrl;
-  final String? description;
-  final List<TryEntity>? trys;
-  final Duration? restTime;
+  final String? describtion;
+  final List<ApproachEntity> approaches;
+  final Duration restTime;
 
   ExerciseEntity({
     required this.id,
     required this.exerciseType,
     required this.name,
     required this.imageUrl,
-     this.trys,
-     this.restTime,
-    this.description,
+    required this.approaches,
+    required this.restTime,
+    this.describtion,
   });
 
   @override
@@ -82,20 +82,20 @@ class ExerciseEntity {
     restTime.hashCode;
   }
 }
-
-class TryEntity {
+  
+class ApproachEntity {
   final int id;
   int repeat;
   int weight;
   ExerciseComplexity complexity;
-  Duration tryTime;
+  Duration approachTime;
 
-  TryEntity({
-    required this.id,
+  ApproachEntity({
+  required this.id,
     required this.repeat,
     required this.weight,
     required this.complexity,
-    required this.tryTime,
+    required this.approachTime,
   });
 
   @override

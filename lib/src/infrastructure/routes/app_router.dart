@@ -13,7 +13,7 @@ class AppRouter {
   static final _historyKey = GlobalKey<NavigatorState>();
   static final _circuitTrainingKey = GlobalKey<NavigatorState>();
   static final _profileKey = GlobalKey<NavigatorState>();
-  
+
   static GoRouter router = GoRouter(
     navigatorKey: _rootKey,
     debugLogDiagnostics: true,
@@ -39,13 +39,15 @@ class AppRouter {
             routes: [
               GoRoute(
                 name: TrainingScreen.route,
-                path: "/${TrainingScreen.route}",
+                path: "/$TrainingScreen.route",
                 builder: (context, state) => const TrainingScreen(),
                 routes: [
                   GoRoute(
                     name: TrainingDetailsScreen.route,
                     path: TrainingDetailsScreen.route,
-                    builder: (context, state) => const TrainingDetailsScreen(),
+                    builder: (context, state) => TrainingDetailsScreen(
+                      trainingId: state.extra as int,
+                    ),
                   ),
                   GoRoute(
                     parentNavigatorKey: _rootKey,
