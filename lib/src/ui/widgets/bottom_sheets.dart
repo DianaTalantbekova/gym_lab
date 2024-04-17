@@ -146,7 +146,7 @@ class BottomSheets {
                                       TrainingEvent.addNewTraining(
                                         newTraining: TrainingEntity(
                                           name: state.name!,
-                                          color: state.color!,
+                                          color: state.color!, id: 1,
                                         ),
                                       ),
                                     );

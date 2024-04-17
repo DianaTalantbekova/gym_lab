@@ -54,7 +54,7 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
         ),
         TrainingEntity(
           name: 'бицепс',
-          color: 4289646315,
+          color: 4289646315, id: 1,
         ),
       ]));
     });

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/ui/screens/add_exercise/bloc/add_exercise_bloc.dart';
+import 'package:gym_labb/src/ui/screens/add_exercise/bloc/add_exercise_bloc.dart';
 
+import '../../../domain/entity/training_entity.dart';
 import '../../../infrastructure/l10n/strings.dart';
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
@@ -29,7 +33,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
   @override
   void initState() {
     super.initState();
-
+    context.read<AddExerciseBloc>().add(const AddExerciseEvent.started());
     controller = TabController(length: 5, vsync: this);
   }
 
@@ -142,32 +146,32 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
             ),
             const Gap(20),
             Expanded(
-              child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  ListView.separated(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return ExerciseList(
-                          letter: "ABC".characters.toList()[index]);
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Gap(20);
-                    },
-                  ),
-                  ListView.separated(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return ExerciseList(
-                          letter: "ABC".characters.toList()[index]);
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Gap(20);
-                    },
-                  ),
-                ],
+              child: BlocBuilder<AddExerciseBloc, AddExerciseState>(
+                builder: (context, state) {
+                  return state.isLoading
+                      ? const CircularProgressIndicator()
+                      : PageView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: [
+                            ListView.separated(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 32),
+                              itemCount: state.exercisesWithLetters.length,
+                              itemBuilder: (context, index) {
+                                return ExerciseList(
+                                  letter: state.exercisesWithLetters.keys
+                                      .toList()[index],
+                                  items: state.exercisesWithLetters.values
+                                      .toList()[index],
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return const Gap(20);
+                              },
+                            ),
+                          ],
+                        );
+                },
               ),
             ),
           ],
@@ -237,9 +241,11 @@ class ExerciseList extends StatelessWidget {
   const ExerciseList({
     super.key,
     required this.letter,
+    required this.items,
   });
 
   final String letter;
+  final List<ExerciseEntity> items;
 
   @override
   Widget build(BuildContext context) {
@@ -257,16 +263,14 @@ class ExerciseList extends StatelessWidget {
         ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 5,
+          itemCount: items.length,
           itemBuilder: (context, index) {
             return ExerciseCard(
               // isSelected: letter == "A" && index == 0,
               isSelected: (letter == "A" && index < 3) || index == 0,
-              image: index % 2 != 0
-                  ? Assets.images.exercise1.provider()
-                  : Assets.images.exercise2.provider(),
-              name: Strings.of(context).benchPress,
-              sets: 4,
+              image: items[index].imageUrl,
+              name: items[index].name,
+              sets: items[index].trys?.length??0,
             );
           },
           separatorBuilder: (context, index) {
@@ -288,7 +292,7 @@ class ExerciseCard extends StatelessWidget {
   }) : isSelected = isSelected ?? false;
 
   final bool isSelected;
-  final ImageProvider image;
+  final String image;
   final String name;
   final int sets;
 
@@ -310,7 +314,7 @@ class ExerciseCard extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              image: DecorationImage(image: image),
+              image: DecorationImage(image: AssetImage(image)),
             ),
           ),
           const Gap(12),
