@@ -20,11 +20,11 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
       emit(state.copyWith(isLoading: false, trainings: [
         TrainingEntity(
           name: 'плечи',
-          color: 4286743219,
+          color: 4286743219, id: 0,
         ),
         TrainingEntity(
           name: 'бицепс',
-          color: 4289646315,
+          color: 4289646315, id: 1,
         ),
       ]));
     });
