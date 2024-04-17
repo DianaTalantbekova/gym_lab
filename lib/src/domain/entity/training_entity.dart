@@ -18,29 +18,29 @@ class ExerciseEntity {
   final String name;
   final String imageUrl;
   final String? describtion;
-  final List<TryEntity> trys;
+  final List<ApproachEntity> approaches;
   final Duration restTime;
 
   ExerciseEntity({
     required this.name,
     required this.imageUrl,
-    required this.trys,
+    required this.approaches,
     required this.restTime,
     this.describtion,
   });
 }
 
-class TryEntity {
+class ApproachEntity {
   int repeat;
   int weight;
   ExerciseComplexity complexity;
-  Duration tryTime;
+  Duration approachTime;
 
-  TryEntity({
+  ApproachEntity({
     required this.repeat,
     required this.weight,
     required this.complexity,
-    required this.tryTime,
+    required this.approachTime,
   });
 }
 

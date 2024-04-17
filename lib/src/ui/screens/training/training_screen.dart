@@ -72,6 +72,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                               children: [
                                 TrainingCard(
                                   item: state.trainings[index],
+                                  trainingIndex: index,
                                 ),
                                 const Gap(16)
                               ],

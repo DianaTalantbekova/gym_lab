@@ -14,15 +14,17 @@ class TrainingCard extends StatelessWidget {
   const TrainingCard({
     super.key,
     required this.item,
+    required this.trainingIndex,
   });
 
   final TrainingEntity item;
+  final int trainingIndex;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pushNamed(TrainingDetailsScreen.route);
+        context.pushNamed(TrainingDetailsScreen.route, extra: trainingIndex);
       },
       child: Container(
         height: 44,
