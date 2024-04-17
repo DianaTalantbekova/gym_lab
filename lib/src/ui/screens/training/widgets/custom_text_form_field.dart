@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../../infrastructure/resources/app_colors.dart';
-import '../../infrastructure/resources/app_styles.dart';
+import '../../../../infrastructure/resources/app_colors.dart';
+import '../../../../infrastructure/resources/app_styles.dart';
 
-class GLTextFormField extends StatelessWidget {
-  const GLTextFormField({
+class CustomTextFormField extends StatelessWidget {
+  const CustomTextFormField({
     super.key,
     this.initialValue,
     this.hintText,
     this.icon,
-    required this.onChanged, this.validator,
+    required this.onChanged,
+    this.validator,
   });
 
   final String? hintText;
@@ -46,7 +47,11 @@ class GLTextFormField extends StatelessWidget {
               onChanged: onChanged,
               cursorColor: AppColors.white,
               style: AppStyles.jost12,
-              decoration: InputDecoration.collapsed(
+              decoration: InputDecoration(
+                errorStyle: const TextStyle(
+                  fontSize: 0,
+                  color: AppColors.red,
+                ),
                 border: InputBorder.none,
                 hintText: hintText,
                 hintStyle: AppStyles.jost12

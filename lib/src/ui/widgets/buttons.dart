@@ -44,6 +44,7 @@ class GLButton extends StatelessWidget {
     required this.text,
     this.icon,
     required this.onPressed,
+    this.loading = false,
   }) : blur = blur ?? false;
 
   final bool blur;
@@ -51,6 +52,7 @@ class GLButton extends StatelessWidget {
   final String text;
   final Widget? icon;
   final VoidCallback onPressed;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +81,13 @@ class GLButton extends StatelessWidget {
               ),
             ),
           Center(
-            child: Text(
-              text,
-              style: AppStyles.jost14Bold
-                  .copyWith(color: color ?? AppColors.white),
-            ),
+            child: loading
+                ? const CircularProgressIndicator()
+                : Text(
+                    text,
+                    style: AppStyles.jost14Bold
+                        .copyWith(color: color ?? AppColors.white),
+                  ),
           ),
         ],
       ),
@@ -128,4 +132,3 @@ class GLIconButton extends StatelessWidget {
     );
   }
 }
-

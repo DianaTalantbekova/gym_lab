@@ -1,13 +1,21 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/domain/entity/training_entity.dart';
+import 'package:gym_labb/src/ui/blocs/workout_bloc/workout_bloc.dart';
+import 'package:gym_labb/src/ui/screens/training/bloc/training_bloc.dart';
 import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
 import '../../infrastructure/resources/app_styles.dart';
+import '../screens/training/widgets/custom_text_form_field.dart';
 import 'buttons.dart';
 import 'color_picker.dart';
 import 'gl_text_form_field.dart';
@@ -15,6 +23,11 @@ import '../screens/training/widgets/keyboard_key.dart';
 
 class BottomSheets {
   static void showCreateTrainingModalBottomSheet(BuildContext context) {
+    final key = GlobalKey<FormState>();
+    late String name;
+    ValueNotifier<String> validateError = ValueNotifier<String>("");
+    ValueNotifier<int> selectedColor = ValueNotifier<int>(4284783081);
+
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -23,61 +36,133 @@ class BottomSheets {
       barrierColor: Colors.transparent,
       constraints: const BoxConstraints(maxHeight: 353),
       builder: (context) {
-        return Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(36),
-              topRight: Radius.circular(36),
-            ),
-            color: AppColors.modalBottomSheetColor,
-            border: Border.all(
-              width: 2,
-              strokeAlign: BorderSide.strokeAlignOutside,
-              color: AppColors.blue,
-            ),
-          ),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 30,
-              sigmaY: 30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 34),
-              child: Column(
-                children: [
-                  const Gap(28),
-                  Text(
-                    Strings.of(context).trainingName,
-                    style: AppStyles.jost12,
-                  ),
-                  const Gap(16),
-                  GLTextFormField(
-                    onChanged: (value) {},
-                  ),
-                  const Gap(30),
-                  Text(
-                    Strings.of(context).colorMarking,
-                    style: AppStyles.jost12,
-                  ),
-                  const Gap(16),
-                  ColorPicker(
-                    onSelected: (value) {},
-                  ),
-                  const Spacer(),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 217),
-                    child: GLButton(
-                      color: AppColors.blue,
-                      text: Strings.of(context).save,
-                      onPressed: () {},
+        return BlocProvider(
+          create: (context) => WorkoutBloc(),
+          child: Builder(builder: (context) {
+            return Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(36),
+                  topRight: Radius.circular(36),
+                ),
+                color: AppColors.modalBottomSheetColor,
+                border: Border.all(
+                  width: 2,
+                  strokeAlign: BorderSide.strokeAlignOutside,
+                  color: AppColors.blue,
+                ),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 30,
+                  sigmaY: 30,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 34),
+                  child: Form(
+                    key: key,
+                    child: Column(
+                      children: [
+                        const Gap(28),
+                        Text(
+                          "Название тренировки",
+                          style: AppStyles.jost12,
+                        ),
+                        const Gap(16),
+                        CustomTextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              validateError.value = 'Заполните это поле!';
+                              return 'Заполните это поле!';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            name = value;
+                          },
+                        ),
+                        const Gap(5),
+                        ValueListenableBuilder(
+                            valueListenable: validateError,
+                            builder: (BuildContext context, String value,
+                                Widget? child) {
+                              if (value.isNotEmpty) {
+                                return Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    value,
+                                    style: AppStyles.jost12.copyWith(
+                                      color: AppColors.red,
+                                    ),
+                                  ),
+                                );
+                              }
+                              return const SizedBox();
+                            }),
+                        const Gap(25),
+                        Text(
+                          "Цветовая маркировка",
+                          style: AppStyles.jost12,
+                        ),
+                        const Gap(16),
+                        ValueListenableBuilder(
+                          valueListenable: selectedColor,
+                          builder:
+                              (BuildContext context, int value, Widget? child) {
+                            return ColorPicker(
+                              onSelected: (value) {
+                                selectedColor.value = value;
+                              },
+                              selectedColor: selectedColor.value,
+                            );
+                          },
+                        ),
+                        const Spacer(),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 217),
+                          child: BlocConsumer<WorkoutBloc, WorkoutState>(
+                            builder: (context, state) {
+                              return GLButton(
+                                color: AppColors.blue,
+                                text: "СОХРАНИТЬ",
+                                loading: state.isLoading,
+                                onPressed: () {
+                                  if (key.currentState?.validate() == true) {
+                                    context.read<WorkoutBloc>().add(
+                                          WorkoutEvent.create(
+                                            name: name,
+                                            color: selectedColor.value,
+                                          ),
+                                        );
+                                  }
+                                },
+                              );
+                            },
+                            listener:
+                                (BuildContext context, WorkoutState state) {
+                              if (state.name != null) {
+                                context.read<TrainingBloc>().add(
+                                      TrainingEvent.addNewTraining(
+                                        newTraining: TrainingEntity(
+                                          name: state.name!,
+                                          color: state.color!,
+                                        ),
+                                      ),
+                                    );
+                                context.pop();
+                              }
+                            },
+                          ),
+                        ),
+                        const Gap(48),
+                      ],
                     ),
                   ),
-                  const Gap(48),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          }),
         );
       },
     );
@@ -191,7 +276,12 @@ class BottomSheets {
     );
   }
 
-  static void showEditTrainingModalBottomSheet(BuildContext context) {
+  static void showEditTrainingModalBottomSheet(
+    BuildContext context,
+    TrainingEntity item,
+  ) {
+    ValueNotifier<int> selectedColor = ValueNotifier<int>(item.color);
+
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -233,7 +323,7 @@ class BottomSheets {
                     ),
                   ),
                   Text(
-                    "ГРУДЬ , БИЦЕПС",
+                    item.name,
                     style: AppStyles.jost12Bold,
                   ),
                   const Gap(32),
@@ -242,8 +332,16 @@ class BottomSheets {
                     style: AppStyles.jost12,
                   ),
                   const Gap(16),
-                  ColorPicker(
-                    onSelected: (value) {},
+                  ValueListenableBuilder(
+                    valueListenable: selectedColor,
+                    builder: (BuildContext context, int value, Widget? child) {
+                      return ColorPicker(
+                        onSelected: (value) {
+                          selectedColor.value = value;
+                        },
+                        selectedColor: selectedColor.value,
+                      );
+                    },
                   ),
                   const Gap(32),
                   ActionButton(

@@ -1,4 +1,5 @@
 {
+  "@@locale": "ru",
   "authorize": "Авторизоваться",
   "forgotPassword": "Забыли пароль ?",
   "addExercise": "ДОБАВИТЬ УПРАЖНЕНИЕ",

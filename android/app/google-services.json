@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "716842989240",
+    "project_id": "gym-lab-33c4e",
+    "storage_bucket": "gym-lab-33c4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716842989240:android:18d78bb5c50552e458664d",
+        "android_client_info": {
+          "package_name": "com.example.gym_labb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716842989240-sfk6efmc971ia2eg59rpqaogpovuu9fb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gym_labb",
+            "certificate_hash": "742cc2e92ca0d8cf662503c13af412d1a31a0577"
+          }
+        },
+        {
+          "client_id": "716842989240-609vljbiq9insg2ga5r4jrhpllcgmkd7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgCjuCAqLsDf2tcanwxDhslJfDXbzvN5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716842989240-609vljbiq9insg2ga5r4jrhpllcgmkd7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "716842989240-ukirv03m5rvnr2v8135o82l4k6206tfo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gymLabb"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
