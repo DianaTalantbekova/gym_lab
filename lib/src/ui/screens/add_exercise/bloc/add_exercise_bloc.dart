@@ -23,7 +23,7 @@ final Map<String,List<ExerciseEntity>>letters = {};
           id: 0,
           exerciseType: [ExerciseType.press, ExerciseType.chest],
           name: 'жим лежа',
-          imageUrl: Assets.images.exercise1.path,
+          imageUrl: Assets.images.exercise1.path, approaches: [], restTime: null,
         ),
         ExerciseEntity(
           id: 1,

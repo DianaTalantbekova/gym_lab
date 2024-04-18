@@ -86,7 +86,7 @@ class _TrainingDetailsScreenState extends State<TrainingDetailsScreen> {
                     isExpanded: isExpandedList[index],
                     image: Assets.images.exercise1.provider(),
                     name: exercises[index].name,
-                    sets: exercises[index].approaches.length,
+                    sets: exercises[index].approaches!.length,
                     exerciseIndex: index,
                   ),
                   separatorBuilder: (context, index) => const Gap(16),
@@ -228,7 +228,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                             child: Column(
                               children: [
                                 const Gap(17),
-                                for (int i = 0; i < approaches.length; i++) ...[
+                                for (int i = 0; i < approaches!.length; i++) ...[
                                   const Gap(16),
                                   SizedBox(
                                     height: 34,

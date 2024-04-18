@@ -270,7 +270,7 @@ class ExerciseList extends StatelessWidget {
               isSelected: (letter == "A" && index < 3) || index == 0,
               image: items[index].imageUrl,
               name: items[index].name,
-              sets: items[index].trys?.length??0,
+              sets: items[index].approaches?.length??0,
             );
           },
           separatorBuilder: (context, index) {
