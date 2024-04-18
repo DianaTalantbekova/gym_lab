@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
-import 'package:gym_labb/src/ui/screens/add_exercise/bloc/add_exercise_bloc.dart';
 import 'package:gym_labb/src/ui/screens/add_exercise/bloc/add_exercise_bloc.dart';
 
 import '../../../domain/entity/training_entity.dart';
@@ -29,6 +29,16 @@ class AddExerciseScreen extends StatefulWidget {
 class _AddExerciseScreenState extends State<AddExerciseScreen>
     with TickerProviderStateMixin {
   late final TabController controller;
+
+  List<Map<ExerciseType, String>> tabs(BuildContext context) {
+    return [
+      {ExerciseType.all: Strings.of(context).all},
+      {ExerciseType.chest: Strings.of(context).chest},
+      {ExerciseType.back: Strings.of(context).back},
+      {ExerciseType.biceps: Strings.of(context).biceps},
+      {ExerciseType.press: Strings.of(context).press},
+    ];
+  }
 
   @override
   void initState() {
@@ -114,28 +124,12 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
                 ),
               ),
               dividerHeight: 0,
-              tabs: [
-                Tab(
-                  text: Strings.of(context).all,
-                  height: 17,
-                ),
-                Tab(
-                  text: Strings.of(context).chest,
-                  height: 17,
-                ),
-                Tab(
-                  text: Strings.of(context).back,
-                  height: 17,
-                ),
-                Tab(
-                  text: Strings.of(context).biceps,
-                  height: 17,
-                ),
-                Tab(
-                  text: Strings.of(context).press,
-                  height: 17,
-                ),
-              ],
+              tabs: tabs(context).map((e) {
+                return Tab(
+                  text: e.values.first,
+                  height: 17.h,
+                );
+              }).toList(),
             ),
             const Gap(32),
             Padding(
@@ -149,27 +143,38 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
               child: BlocBuilder<AddExerciseBloc, AddExerciseState>(
                 builder: (context, state) {
                   return state.isLoading
-                      ? const CircularProgressIndicator()
-                      : PageView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: [
-                            ListView.separated(
+                      ? const Center(
+                          child:
+                              CircularProgressIndicator(color: AppColors.blue),
+                        )
+                      : PageView.builder(
+                          itemCount: tabs(context).length,
+                          // physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int tabIndex) {
+                            return ListView.builder(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 32),
                               itemCount: state.exercisesWithLetters.length,
                               itemBuilder: (context, index) {
-                                return ExerciseList(
-                                  letter: state.exercisesWithLetters.keys
-                                      .toList()[index],
-                                  items: state.exercisesWithLetters.values
-                                      .toList()[index],
-                                );
+                                final List<ExerciseEntity> items = [];
+                                for (var i in state.exercisesWithLetters.values
+                                    .toList()[index]) {
+                                  items.add(i);
+                                }
+                                final sortedItems = items.where((element) {
+                                  return element.exerciseType.contains(
+                                      tabs(context)[tabIndex].keys.first);
+                                }).toList();
+                                return sortedItems.isEmpty
+                                    ? const SizedBox()
+                                    : ExerciseList(
+                                        letter: state.exercisesWithLetters.keys
+                                            .toList()[index]
+                                            .toUpperCase(),
+                                        items: sortedItems);
                               },
-                              separatorBuilder: (context, index) {
-                                return const Gap(20);
-                              },
-                            ),
-                          ],
+                            );
+                          },
                         );
                 },
               ),
@@ -270,13 +275,14 @@ class ExerciseList extends StatelessWidget {
               isSelected: (letter == "A" && index < 3) || index == 0,
               image: items[index].imageUrl,
               name: items[index].name,
-              sets: items[index].approaches?.length??0,
+              sets: items[index].approaches?.length ?? 0,
             );
           },
           separatorBuilder: (context, index) {
             return const Gap(12);
           },
-        )
+        ),
+        const Gap(20),
       ],
     );
   }
@@ -322,7 +328,7 @@ class ExerciseCard extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: "$name\n",
+                  text: "$name\n".toUpperCase(),
                   style: AppStyles.jost14Bold.copyWith(
                       color: isSelected ? AppColors.blue : AppColors.white),
                 ),

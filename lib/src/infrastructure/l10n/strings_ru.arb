@@ -1,4 +1,5 @@
 {
+  "exerciseCategory": "{value}",
   "@@locale": "ru",
   "authorize": "Авторизоваться",
   "forgotPassword": "Забыли пароль ?",

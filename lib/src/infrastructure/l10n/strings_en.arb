@@ -1,4 +1,5 @@
 {
+  "exerciseCategory": "{value}",
   "authorize": "Authorize",
   "forgotPassword": "Forgot password ?",
   "addExercise": "ADD EXERCISE",

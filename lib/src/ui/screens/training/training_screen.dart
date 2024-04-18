@@ -1,12 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
-import 'package:gym_labb/src/ui/blocs/workout_bloc/workout_bloc.dart';
-import 'package:gym_labb/src/ui/screens/training/training_details_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
 import '../../widgets/bottom_sheets.dart';
@@ -14,7 +10,6 @@ import '../../widgets/buttons.dart';
 import '../../widgets/gl_app_bar.dart';
 import '../../widgets/gl_scaffold.dart';
 import '../../widgets/training_card.dart';
-import '../add_exercise/add_exercise_screen.dart';
 import 'bloc/training_bloc.dart';
 
 class TrainingScreen extends StatefulWidget {
@@ -63,7 +58,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 builder: (context, state) {
                   return state.isLoading
                       ? const Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(color: AppColors.blue),
                         )
                       : ListView.builder(
                           itemCount: state.trainings.length,
