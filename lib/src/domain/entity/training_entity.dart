@@ -43,18 +43,18 @@ class ExerciseEntity {
   final List<ExerciseType> exerciseType;
   final String name;
   final String imageUrl;
-  final String? describtion;
-  final List<ApproachEntity> approaches;
-  final Duration restTime;
+  final String? description;
+  final List<ApproachEntity>? approaches;
+  final Duration? restTime;
 
   ExerciseEntity({
     required this.id,
     required this.exerciseType,
     required this.name,
     required this.imageUrl,
-    required this.approaches,
-    required this.restTime,
-    this.describtion,
+     this.approaches,
+     this.restTime,
+    this.description,
   });
 
   @override
@@ -67,7 +67,7 @@ class ExerciseEntity {
           other.name == name &&
           other.imageUrl == imageUrl &&
           other.description == description &&
-          listEquals(other.trys, trys) &&
+          listEquals(other.approaches, approaches) &&
           other.restTime == restTime;
   }
 
@@ -78,7 +78,7 @@ class ExerciseEntity {
     name.hashCode ^
     imageUrl.hashCode ^
     description.hashCode ^
-    trys.hashCode ^
+    approaches.hashCode ^
     restTime.hashCode;
   }
 }
@@ -99,7 +99,7 @@ class ApproachEntity {
   });
 
   @override
-  bool operator ==(covariant TryEntity other) {
+  bool operator ==(covariant ApproachEntity other) {
     if (identical(this, other)) return true;
 
     return
@@ -107,7 +107,7 @@ class ApproachEntity {
           other.repeat == repeat &&
           other.weight == weight &&
           other.complexity == complexity &&
-          other.tryTime == tryTime;
+          other.approachTime == approachTime;
   }
 
   @override
@@ -116,7 +116,7 @@ class ApproachEntity {
     repeat.hashCode ^
     weight.hashCode ^
     complexity.hashCode ^
-    tryTime.hashCode;
+    approachTime.hashCode;
   }
 }
 
