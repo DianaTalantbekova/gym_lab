@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gym_labb/src/data/repository/auth_repo.dart';
 import 'package:gym_labb/src/infrastructure/utils/consts.dart';
 import 'package:gym_labb/src/ui/blocs/auth/auth_bloc/auth_bloc.dart';
+import 'package:gym_labb/src/ui/screens/add_exercise/bloc/add_exercise_bloc.dart';
 import 'package:gym_labb/src/ui/screens/training/bloc/training_bloc.dart';
 
 import '../di.dart';
@@ -24,6 +25,7 @@ class _MyAppState extends State<MyApp> {
         providers: [
           BlocProvider(create: (context) => TrainingBloc()),
           BlocProvider(create: (context) => getIt.get<AuthBloc>()),
+          BlocProvider(create: (context) => AddExerciseBloc()),
         ],
         child: MaterialApp.router(
           locale: const Locale('ru', 'RU'),
