@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gym_labb/src/ui/screens/auth/login/registration_screen.dart';
 
 import '../../ui/screens/add_exercise/add_exercise_screen.dart';
 import '../../ui/screens/auth/inital/inital_screens.dart';
@@ -21,6 +22,13 @@ class AppRouter {
       GoRoute(
         path: "/",
         builder: (context, state) => const InitialScreen(),
+        routes: [
+          GoRoute(
+            name: RegistrationScreen.route,
+            path: RegistrationScreen.route,
+            builder: (context, state) => const RegistrationScreen(),
+          ),
+        ],
       ),
       GoRoute(
         name: LoginScreen.route,

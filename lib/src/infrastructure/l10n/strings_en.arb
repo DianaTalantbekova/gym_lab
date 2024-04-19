@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "exerciseCategory": "{value}",
   "authorize": "Authorize",
   "forgotPassword": "Forgot password ?",
@@ -9,6 +10,8 @@
   "loginToAccount": "LOGIN TO ACCOUNT",
   "email": "E-mail",
   "password": "Password",
+  "registration": "REGISTRATION",
+  "confirmPassword": "Repeat password",
   "or": "OR",
   "signInWithAppleID": "SIGN IN WITH Apple ID",
   "signInWithGoogle": "SIGN IN WITH Google",
