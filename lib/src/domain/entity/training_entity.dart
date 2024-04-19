@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/foundation.dart';
 
 class TrainingEntity {
@@ -33,6 +34,22 @@ class TrainingEntity {
     color.hashCode ^
     exercises.hashCode ^
     day.hashCode;
+  }
+
+  TrainingEntity copyWith({
+    int? id,
+    String? name,
+    int? color,
+    List<ExerciseEntity>? exercises,
+    DateTime? day,
+  }) {
+    return TrainingEntity(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      color: color ?? this.color,
+      exercises: exercises ?? this.exercises,
+      day: day ?? this.day,
+    );
   }
 }
 
@@ -81,13 +98,33 @@ class ExerciseEntity {
     approaches.hashCode ^
     restTime.hashCode;
   }
+
+  ExerciseEntity copyWith({
+    int? id,
+    List<ExerciseType>? exerciseType,
+    String? name,
+    String? imageUrl,
+    String? description,
+    List<ApproachEntity>? approaches,
+    Duration? restTime,
+  }) {
+    return ExerciseEntity(
+      id: id ?? this.id,
+      exerciseType: exerciseType ?? this.exerciseType,
+      name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
+      description: description ?? this.description,
+      approaches: approaches ?? this.approaches,
+      restTime: restTime ?? this.restTime,
+    );
+  }
 }
-  
+ 
 class ApproachEntity {
   final int id;
   int repeat;
   int weight;
-  ExerciseComplexity complexity;
+  ApproachComplexity complexity;
   Duration approachTime;
 
   ApproachEntity({
@@ -118,9 +155,25 @@ class ApproachEntity {
     complexity.hashCode ^
     approachTime.hashCode;
   }
+
+  ApproachEntity copyWith({
+    int? id,
+    int? repeat,
+    int? weight,
+    ApproachComplexity? complexity,
+    Duration? approachTime,
+  }) {
+    return ApproachEntity(
+      id: id ?? this.id,
+      repeat: repeat ?? this.repeat,
+      weight: weight ?? this.weight,
+      complexity: complexity ?? this.complexity,
+      approachTime: approachTime ?? this.approachTime,
+    );
+  }
 }
 
-enum ExerciseComplexity { easy, medium, hard }
+enum ApproachComplexity { easy, medium, hard }
 
 /// User Entity
 class UserEntity {
