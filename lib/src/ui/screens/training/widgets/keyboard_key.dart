@@ -7,26 +7,31 @@ class KeyboardKey extends StatelessWidget {
   const KeyboardKey({
     super.key,
     required this.text,
+    required this.onTap,
   });
 
   final String text;
+  final ValueChanged<String> onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 136,
-      height: 52,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColors.white,
-          width: 2,
+    return GestureDetector(
+      onTap: () => onTap(text),
+      child: Container(
+        width: 136,
+        height: 52,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: AppColors.white,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(26),
         ),
-        borderRadius: BorderRadius.circular(26),
-      ),
-      child: Center(
-        child: Text(
-          text,
-          style: AppStyles.jost20Bold,
+        child: Center(
+          child: Text(
+            text,
+            style: AppStyles.jost20Bold,
+          ),
         ),
       ),
     );

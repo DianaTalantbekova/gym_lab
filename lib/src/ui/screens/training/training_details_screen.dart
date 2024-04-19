@@ -37,11 +37,15 @@ class _TrainingDetailsScreenState extends State<TrainingDetailsScreen> {
       context.read<TrainingBloc>().state.trainings[trainingIndex].exercises ??
       <ExerciseEntity>[];
 
-  late final isExpandedList;
+  late final List<bool> _isExpandedList;
 
   @override
   void initState() {
-    isExpandedList = List.generate(exercises.length, (index) => false);
+    context
+        .read<TrainingBloc>()
+        .add(const TrainingEvent.trainingDetailsOpened());
+
+    _isExpandedList = List.generate(exercises.length, (index) => false);
     super.initState();
   }
 
@@ -70,29 +74,31 @@ class _TrainingDetailsScreenState extends State<TrainingDetailsScreen> {
         children: [
           const Gap(12),
           BlocBuilder<TrainingBloc, TrainingState>(
-            buildWhen: (previous, current) =>
-                previous.trainings[trainingIndex].exercises !=
-                current.trainings[trainingIndex].exercises,
             builder: (context, state) {
-              return Expanded(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => ExerciseCard(
-                    onTap: () {
-                      setState(() {
-                        isExpandedList[index] = !isExpandedList[index];
-                      });
-                    },
-                    isExpanded: isExpandedList[index],
-                    image: Assets.images.exercise1.provider(),
-                    name: exercises[index].name,
-                    sets: exercises[index].approaches!.length,
-                    exerciseIndex: index,
+              if (state.exercisesLoading) {
+                return const Expanded(
+                    child: Center(child: CircularProgressIndicator()));
+              } else {
+                return Expanded(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => ExerciseCard(
+                      onTap: () {
+                        setState(() {
+                          _isExpandedList[index] = !_isExpandedList[index];
+                        });
+                      },
+                      isExpanded: _isExpandedList[index],
+                      image: Assets.images.exercise1.provider(),
+                      name: exercises[index].name,
+                      sets: exercises[index].approaches!.length,
+                      exerciseIndex: index,
+                    ),
+                    separatorBuilder: (context, index) => const Gap(16),
+                    itemCount: exercises.length,
                   ),
-                  separatorBuilder: (context, index) => const Gap(16),
-                  itemCount: exercises.length,
-                ),
-              );
+                );
+              }
             },
           ),
           const Gap(12),
@@ -138,6 +144,10 @@ class _ExerciseCardState extends State<ExerciseCard> {
   bool difficulty = false;
 
   int selectedIndex = -1;
+
+  late List<TextEditingController> repsControllers;
+  late List<TextEditingController> weightControllers;
+  late List<TextEditingController> complexityControllers;
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +228,21 @@ class _ExerciseCardState extends State<ExerciseCard> {
                             .exercises![widget.exerciseIndex].approaches,
                     builder: (context, state) {
                       final approaches = state.trainings[trainingIndex]
-                          .exercises![widget.exerciseIndex].approaches;
+                          .exercises![widget.exerciseIndex].approaches!;
+
+                      repsControllers = List.generate(
+                          approaches.length,
+                          (index) => TextEditingController(
+                              text: approaches[index].repeat.toString()));
+                      weightControllers = List.generate(
+                          approaches.length,
+                          (index) => TextEditingController(
+                              text: approaches[index].weight.toString()));
+                      complexityControllers = List.generate(
+                          approaches.length,
+                          (index) => TextEditingController(
+                              text: approaches[index].complexity.toString()));
+
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +252,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                             child: Column(
                               children: [
                                 const Gap(17),
-                                for (int i = 0; i < approaches!.length; i++) ...[
+                                for (int i = 0; i < approaches.length; i++) ...[
                                   const Gap(16),
                                   SizedBox(
                                     height: 34,
@@ -271,11 +295,32 @@ class _ExerciseCardState extends State<ExerciseCard> {
                                       });
 
                                       BottomSheets.showKeyboardModalBottomSheet(
-                                        context,
-                                        _unselectAll,
-                                      );
+                                          context: context,
+                                          onClose: _unselectAll,
+                                          controller: repsControllers[i],
+                                          onChanged: (value) {
+                                            setState(() {
+                                              repsControllers[i].text = value;
+                                            });
+
+                                            final int intValue;
+
+                                            if (value.isNotEmpty) {
+                                              intValue = int.parse(value);
+                                            } else {
+                                              intValue = 0;
+                                            }
+
+                                            context.read<TrainingBloc>().add(
+                                                ApproachDetailsChanged(
+                                                    trainingId: trainingIndex,
+                                                    exerciseId:
+                                                        widget.exerciseIndex,
+                                                    approachId: i,
+                                                    reps: intValue));
+                                          });
                                     },
-                                    value: approaches[i].repeat,
+                                    controller: repsControllers[i],
                                   ),
                                 ),
                               ],
@@ -309,11 +354,32 @@ class _ExerciseCardState extends State<ExerciseCard> {
                                       });
 
                                       BottomSheets.showKeyboardModalBottomSheet(
-                                        context,
-                                        _unselectAll,
-                                      );
+                                          context: context,
+                                          onClose: _unselectAll,
+                                          controller: weightControllers[i],
+                                          onChanged: (value) {
+                                            setState(() {
+                                              weightControllers[i].text = value;
+                                            });
+
+                                            final int intValue;
+
+                                            if (value.isNotEmpty) {
+                                              intValue = int.parse(value);
+                                            } else {
+                                              intValue = 0;
+                                            }
+
+                                            context.read<TrainingBloc>().add(
+                                                ApproachDetailsChanged(
+                                                    trainingId: trainingIndex,
+                                                    exerciseId:
+                                                        widget.exerciseIndex,
+                                                    approachId: i,
+                                                    weight: intValue));
+                                          });
                                     },
-                                    value: approaches[i].weight,
+                                    controller: weightControllers[i],
                                   ),
                                 )
                               ],
@@ -348,11 +414,31 @@ class _ExerciseCardState extends State<ExerciseCard> {
 
                                       BottomSheets
                                           .showDifficultyModalBottomSheet(
-                                        context,
-                                        _unselectAll,
-                                      );
+                                              context: context,
+                                              onClose: _unselectAll,
+                                              controller:
+                                                  complexityControllers[i],
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  complexityControllers[i]
+                                                      .text = value;
+                                                });
+
+                                                final complexity = value
+                                                    .toApproachComplexity();
+
+                                                context
+                                                    .read<TrainingBloc>()
+                                                    .add(ApproachDetailsChanged(
+                                                        trainingId:
+                                                            trainingIndex,
+                                                        exerciseId: widget
+                                                            .exerciseIndex,
+                                                        approachId: i,
+                                                        exerciseComplexity: complexity));
+                                              });
                                     },
-                                    complexity: approaches[i].complexity,
+                                    controller: complexityControllers[i],
                                   ),
                                 )
                               ],
@@ -365,10 +451,20 @@ class _ExerciseCardState extends State<ExerciseCard> {
                                 const Gap(17),
                                 for (int i = 0; i < approaches.length; i++) ...[
                                   const Gap(16),
-                                  SizedBox(
-                                    height: 34,
-                                    child: Center(
-                                      child: Assets.icons.training.remove.svg(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      context.read<TrainingBloc>().add(
+                                          TrainingEvent.approachDeleted(
+                                              trainingId: trainingIndex,
+                                              exerciseId: widget.exerciseIndex,
+                                              approachId: i));
+                                    },
+                                    child: SizedBox(
+                                      height: 34,
+                                      child: Center(
+                                        child:
+                                            Assets.icons.training.remove.svg(),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -387,7 +483,12 @@ class _ExerciseCardState extends State<ExerciseCard> {
                         ActionButton(
                           icon: Assets.icons.add.svg(),
                           text: Strings.of(context).approach,
-                          onTap: () {},
+                          onTap: () {
+                            context.read<TrainingBloc>().add(
+                                TrainingEvent.approachAdded(
+                                    trainingId: trainingIndex,
+                                    exerciseId: widget.exerciseIndex));
+                          },
                         ),
                         const Spacer(),
                         GLIconButton(
@@ -436,20 +537,25 @@ class _ExerciseCardState extends State<ExerciseCard> {
   }
 }
 
-class ExerciseField extends StatelessWidget {
+class ExerciseField extends StatefulWidget {
   const ExerciseField({
     super.key,
-    this.onTap,
-    required this.value,
+    required this.onTap,
+    required this.controller,
   });
 
-  final VoidCallback? onTap;
-  final int value;
+  final VoidCallback onTap;
+  final TextEditingController controller;
 
+  @override
+  State<ExerciseField> createState() => _ExerciseFieldState();
+}
+
+class _ExerciseFieldState extends State<ExerciseField> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         width: 84,
         height: 34,
@@ -459,9 +565,8 @@ class ExerciseField extends StatelessWidget {
         ),
         child: Center(
           child: TextFormField(
-            // TODO(littlelarge): add validation for empty
+            controller: widget.controller,
             enabled: false,
-            initialValue: value.toString(),
             style: AppStyles.jost12Bold,
             textAlign: TextAlign.center,
             decoration: const InputDecoration.collapsed(
@@ -479,11 +584,11 @@ class ExerciseDifficulty extends StatelessWidget {
   ExerciseDifficulty({
     super.key,
     this.onTap,
-    required this.complexity,
+    required this.controller,
   });
 
   final VoidCallback? onTap;
-  final ExerciseComplexity complexity;
+  final TextEditingController controller;
 
   final Color _selectedColor = AppColors.white.withOpacity(1);
   final Color _unSelectedColor = AppColors.white.withOpacity(0.3);
@@ -509,7 +614,7 @@ class ExerciseDifficulty extends StatelessWidget {
                 height: 8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
-                  color: complexity == ExerciseComplexity.easy
+                  color: controller.text == ApproachComplexity.easy.toString()
                       ? _selectedColor
                       : _unSelectedColor,
                 ),
@@ -520,7 +625,7 @@ class ExerciseDifficulty extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
-                  color: complexity == ExerciseComplexity.medium
+                  color: controller.text == ApproachComplexity.medium.toString()
                       ? _selectedColor
                       : _unSelectedColor,
                 ),
@@ -530,7 +635,7 @@ class ExerciseDifficulty extends StatelessWidget {
                 height: 24,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
-                  color: complexity == ExerciseComplexity.hard
+                  color: controller.text == ApproachComplexity.hard.toString()
                       ? _selectedColor
                       : _unSelectedColor,
                 ),
@@ -544,3 +649,18 @@ class ExerciseDifficulty extends StatelessWidget {
 }
 
 enum ApproachDetails { reps, weight, difficulty, nothing }
+
+extension ToApproachComplexity on String {
+  ApproachComplexity toApproachComplexity() {
+    switch (this) {
+      case 'ApproachComplexity.easy':
+        return ApproachComplexity.easy;
+      case 'ApproachComplexity.medium':
+        return ApproachComplexity.medium;
+      case 'ApproachComplexity.hard':
+        return ApproachComplexity.hard;
+      default:
+        return ApproachComplexity.easy;
+    }
+  }
+}

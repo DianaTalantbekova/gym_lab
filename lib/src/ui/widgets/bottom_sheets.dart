@@ -1,9 +1,7 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -11,14 +9,12 @@ import 'package:gym_labb/gen/assets.gen.dart';
 import 'package:gym_labb/src/domain/entity/training_entity.dart';
 import 'package:gym_labb/src/ui/blocs/workout_bloc/workout_bloc.dart';
 import 'package:gym_labb/src/ui/screens/training/bloc/training_bloc.dart';
-import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
 import '../../infrastructure/resources/app_styles.dart';
 import '../screens/training/widgets/custom_text_form_field.dart';
 import 'buttons.dart';
 import 'color_picker.dart';
-import 'gl_text_form_field.dart';
 import '../screens/training/widgets/keyboard_key.dart';
 
 class BottomSheets {
@@ -146,7 +142,8 @@ class BottomSheets {
                                       TrainingEvent.addNewTraining(
                                         newTraining: TrainingEntity(
                                           name: state.name!,
-                                          color: state.color!, id: 1,
+                                          color: state.color!,
+                                          id: 1,
                                         ),
                                       ),
                                     );
@@ -168,8 +165,13 @@ class BottomSheets {
     );
   }
 
-  static void showDifficultyModalBottomSheet(
-      BuildContext context, VoidCallback onClose) {
+  static void showDifficultyModalBottomSheet({
+    required BuildContext context,
+    required VoidCallback onClose,
+    required TextEditingController controller,
+    required ValueChanged<String> onChanged,
+  }) {
+    // TODO(littlelarge): add localization
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -178,95 +180,9 @@ class BottomSheets {
       barrierColor: Colors.transparent,
       constraints: const BoxConstraints(maxHeight: 361),
       builder: (context) {
-        return Container(
-          clipBehavior: Clip.antiAlias,
-          decoration:
-              const BoxDecoration(color: AppColors.modalBottomSheetColor),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 30,
-              sigmaY: 30,
-            ),
-            child: Column(
-              children: [
-                const Gap(16),
-                RichText(
-                  text: TextSpan(
-                    text: "ВЫБЕРИТЕ СЛОЖНОСТЬ",
-                    style: AppStyles.jost14Bold,
-                    recognizer: TapGestureRecognizer()..onTap = () {},
-                  ),
-                ),
-                const Gap(32),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Opacity(
-                      opacity: 0.3,
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 40,
-                            height: 58,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                          ),
-                          const Gap(32),
-                          Text(
-                            "Легко",
-                            style: AppStyles.jost12,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 40,
-                            height: 114,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                          ),
-                          const Gap(32),
-                          Text(
-                            "Нормально",
-                            style: AppStyles.jost12,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Opacity(
-                      opacity: 0.3,
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 40,
-                            height: 172,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                          ),
-                          const Gap(32),
-                          Text(
-                            "Сложно",
-                            style: AppStyles.jost12,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+        return DifficultyModalBottomSheet(
+          controller: controller,
+          onChanged: onChanged,
         );
       },
     ).then(
@@ -364,8 +280,30 @@ class BottomSheets {
     );
   }
 
-  static void showKeyboardModalBottomSheet(
-      BuildContext context, VoidCallback onClose) {
+  static void showKeyboardModalBottomSheet({
+    required BuildContext context,
+    required VoidCallback onClose,
+    required TextEditingController controller,
+    required ValueChanged<String> onChanged,
+  }) {
+    void addValue(String value) {
+      if (controller.text.length < 6) {
+        if (value != '0' && controller.text.isEmpty ||
+            controller.text.isNotEmpty) {
+          controller.text += value;
+          onChanged(controller.text);
+        }
+      }
+    }
+
+    void removeValue() {
+      if (controller.text.isNotEmpty) {
+        controller.text =
+            controller.text.substring(0, controller.text.length - 1);
+        onChanged(controller.text);
+      }
+    }
+
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -391,9 +329,13 @@ class BottomSheets {
                     const Spacer(),
                     RichText(
                       text: TextSpan(
+                        // TODO(littlelarge): add localization
                         text: "ГОТОВО",
                         style: AppStyles.jost14Bold,
-                        recognizer: TapGestureRecognizer()..onTap = () {},
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.of(context).pop();
+                          },
                       ),
                     ),
                     const Gap(16),
@@ -406,39 +348,72 @@ class BottomSheets {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Column(
+                      Column(
                         children: [
-                          KeyboardKey(text: "1"),
-                          Gap(8),
-                          KeyboardKey(text: "4"),
-                          Gap(8),
-                          KeyboardKey(text: "7"),
-                        ],
-                      ),
-                      const Column(
-                        children: [
-                          KeyboardKey(text: "2"),
-                          Gap(8),
-                          KeyboardKey(text: "5"),
-                          Gap(8),
-                          KeyboardKey(text: "8"),
-                          Gap(8),
-                          KeyboardKey(text: "0"),
+                          KeyboardKey(
+                            text: "1",
+                            onTap: addValue,
+                          ),
+                          const Gap(8),
+                          KeyboardKey(
+                            text: "4",
+                            onTap: addValue,
+                          ),
+                          const Gap(8),
+                          KeyboardKey(
+                            text: "7",
+                            onTap: addValue,
+                          ),
                         ],
                       ),
                       Column(
                         children: [
-                          const KeyboardKey(text: "3"),
+                          KeyboardKey(
+                            text: "2",
+                            onTap: addValue,
+                          ),
                           const Gap(8),
-                          const KeyboardKey(text: "6"),
+                          KeyboardKey(
+                            text: "5",
+                            onTap: addValue,
+                          ),
                           const Gap(8),
-                          const KeyboardKey(text: "9"),
+                          KeyboardKey(
+                            text: "8",
+                            onTap: addValue,
+                          ),
                           const Gap(8),
-                          SizedBox(
-                            width: 136,
-                            height: 52,
-                            child: Center(
-                              child: Assets.icons.training.clear.svg(),
+                          KeyboardKey(
+                            text: "0",
+                            onTap: addValue,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          KeyboardKey(
+                            text: "3",
+                            onTap: addValue,
+                          ),
+                          const Gap(8),
+                          KeyboardKey(
+                            text: "6",
+                            onTap: addValue,
+                          ),
+                          const Gap(8),
+                          KeyboardKey(
+                            text: "9",
+                            onTap: addValue,
+                          ),
+                          const Gap(8),
+                          GestureDetector(
+                            onTap: () => removeValue(),
+                            child: SizedBox(
+                              width: 136,
+                              height: 52,
+                              child: Center(
+                                child: Assets.icons.training.clear.svg(),
+                              ),
                             ),
                           ),
                         ],
@@ -453,8 +428,148 @@ class BottomSheets {
       },
     ).then(
       (value) {
+        if (controller.text.isEmpty) {
+          controller.text = '1';
+        }
+
         onClose();
       },
+    );
+  }
+}
+
+class DifficultyModalBottomSheet extends StatefulWidget {
+  const DifficultyModalBottomSheet(
+      {super.key, required this.controller, required this.onChanged});
+
+  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
+
+  @override
+  State<DifficultyModalBottomSheet> createState() =>
+      _DifficultyModalBottomSheetState();
+}
+
+class _DifficultyModalBottomSheetState
+    extends State<DifficultyModalBottomSheet> {
+  void change(ApproachComplexity complexity) {
+    setState(() {
+      widget.controller.text = complexity.toString();
+      widget.onChanged(widget.controller.text);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      decoration: const BoxDecoration(color: AppColors.modalBottomSheetColor),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 30,
+          sigmaY: 30,
+        ),
+        child: Column(
+          children: [
+            const Gap(16),
+            RichText(
+              text: TextSpan(
+                text: "ВЫБЕРИТЕ СЛОЖНОСТЬ",
+                style: AppStyles.jost14Bold,
+                recognizer: TapGestureRecognizer()..onTap = () {},
+              ),
+            ),
+            const Gap(32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Opacity(
+                  opacity: widget.controller.text ==
+                          ApproachComplexity.easy.toString()
+                      ? 1
+                      : 0.3,
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () => change(ApproachComplexity.easy),
+                        child: Container(
+                          width: 40,
+                          height: 58,
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                      const Gap(32),
+                      Text(
+                        "Легко",
+                        style: AppStyles.jost12,
+                      ),
+                    ],
+                  ),
+                ),
+                Opacity(
+                  opacity: widget.controller.text ==
+                          ApproachComplexity.medium.toString()
+                      ? 1
+                      : 0.3,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () => change(ApproachComplexity.medium),
+                          child: Container(
+                            width: 40,
+                            height: 114,
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
+                        const Gap(32),
+                        Text(
+                          "Нормально",
+                          style: AppStyles.jost12,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Opacity(
+                  opacity: widget.controller.text ==
+                          ApproachComplexity.hard.toString()
+                      ? 1
+                      : 0.3,
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () => change(ApproachComplexity.hard),
+                        child: Container(
+                          width: 40,
+                          height: 172,
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                      const Gap(32),
+                      Text(
+                        "Сложно",
+                        style: AppStyles.jost12,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
