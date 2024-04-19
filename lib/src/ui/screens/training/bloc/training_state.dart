@@ -6,5 +6,6 @@ class TrainingState with _$TrainingState {
     @Default(true) isLoading,
     required List<TrainingEntity> trainings,
     String? error,
+    @Default(true) bool exercisesLoading,
   }) = _Initial;
 }
