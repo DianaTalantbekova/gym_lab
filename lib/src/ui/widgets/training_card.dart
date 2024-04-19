@@ -45,7 +45,7 @@ class TrainingCard extends StatelessWidget {
               ),
             ),
             Text(
-              item.name,
+              item.name.toUpperCase(),
               style: AppStyles.jost12Bold,
             ),
             const Spacer(),
