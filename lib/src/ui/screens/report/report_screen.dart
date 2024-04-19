@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../widgets/gl_app_bar.dart';
 import '../../widgets/gl_scaffold.dart';
@@ -26,7 +27,7 @@ class ReportScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'ОТЧЕТ ПО ТРЕНИРОВКЕ',
+          Strings.of(context).trainingReport,
           style: GoogleFonts.jost(
             fontSize: 12,
             fontWeight: FontWeight.w700,
@@ -67,7 +68,7 @@ class ReportScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'РАЗВЕДЕНИЕ НОГ',
+                          Strings.of(context).legSpread,
                           style: GoogleFonts.jost(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -75,7 +76,7 @@ class ReportScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '4 подхода',
+                          '4 ${Strings.of(context).approaches}',
                           style: GoogleFonts.jost(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,

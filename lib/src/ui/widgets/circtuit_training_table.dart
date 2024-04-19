@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import 'buttons.dart';
 
@@ -15,13 +16,13 @@ class _CircuitTableState extends State<CircuitTable> {
   @override
   Widget build(BuildContext context) {
     List<String> listOfTrainingParts = [
-      'ПОДГОТОВКА',
-      'РАБОТА ',
-      'ОТДЫХ',
-      'УПРАЖНЕНИЯ повторить все',
-      'КРУГИ работа и отдых',
-      'ОТДЫХ МЕЖДУ СЕТАМИ',
-      'УСПОКОИТЬСЯ',
+      Strings.of(context).preparation,
+      Strings.of(context).work,
+      Strings.of(context).rest,
+      Strings.of(context).exercisesRepeatAll,
+      Strings.of(context).cipsWorkAndRest,
+      Strings.of(context).restBetweenSets,
+      Strings.of(context).calmDown,
     ];
 
     List<int> numbers = [
@@ -78,7 +79,7 @@ class _CircuitTableState extends State<CircuitTable> {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  '16 ИНТЕРВАЛОВ',
+                  '16 ${Strings.of(context).intervals}',
                   style: GoogleFonts.jost(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,

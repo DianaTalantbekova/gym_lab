@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/domain/entity/training_entity.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
 import '../../infrastructure/resources/app_styles.dart';
+import '../screens/training/training_details_screen.dart';
+import 'bottom_sheets.dart';
 import 'buttons.dart';
 
 class TrainingCard extends StatelessWidget {
   const TrainingCard({
     super.key,
-    required this.name,
-    required this.colorCode,
-    required this.onTap,
-    required this.onMoreTap,
+    required this.item,
   });
 
-  final String name;
-  final int colorCode;
-  final VoidCallback onTap;
-  final VoidCallback onMoreTap;
+  final TrainingEntity item;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        context.pushNamed(TrainingDetailsScreen.route);
+      },
       child: Container(
         height: 44,
         decoration: BoxDecoration(
@@ -38,18 +38,23 @@ class TrainingCard extends StatelessWidget {
               height: 20,
               margin: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
-                color: Color(colorCode),
+                color: Color(item.color),
                 borderRadius: BorderRadius.circular(3),
               ),
             ),
             Text(
-              name,
+              item.name,
               style: AppStyles.jost12Bold,
             ),
             const Spacer(),
             GLIconButton(
               icon: Assets.icons.training.more.svg(),
-              onTap: onMoreTap,
+              onTap: () {
+                BottomSheets.showEditTrainingModalBottomSheet(
+                  context,
+                  item,
+                );
+              },
             ),
             const Gap(32),
           ],

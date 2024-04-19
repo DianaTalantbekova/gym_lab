@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 class MiniStatBox extends StatelessWidget {
   const MiniStatBox({super.key});
@@ -62,7 +63,7 @@ class MiniStatBox extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '3 УПРАЖНЕНИЯ',
+                      '3 ${Strings.of(context).exercises}',
                       style: GoogleFonts.jost(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -70,7 +71,7 @@ class MiniStatBox extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '17 подходов',
+                      '17 ${Strings.of(context).approaches}',
                       style: GoogleFonts.jost(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -94,7 +95,7 @@ class MiniStatBox extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '7092 кг',
+                          '7092 ${Strings.of(context).kg}',
                           style: GoogleFonts.jost(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -102,7 +103,7 @@ class MiniStatBox extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'общий вес',
+                          Strings.of(context).totalWeight,
                           style: GoogleFonts.jost(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -148,7 +149,7 @@ class MiniStatBox extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'всего повторений',
+                            Strings.of(context).totalReps,
                             style: GoogleFonts.jost(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,

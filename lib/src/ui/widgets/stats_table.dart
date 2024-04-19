@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 class TableStats extends StatelessWidget {
   const TableStats({super.key});
@@ -11,7 +12,7 @@ class TableStats extends StatelessWidget {
         Column(
           children: [
             Text(
-              'ПОДХОДЫ',
+              Strings.of(context).approachesUC,
               style: GoogleFonts.jost(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
@@ -52,7 +53,7 @@ class TableStats extends StatelessWidget {
         Column(
           children: [
             Text(
-              'ПОВТОРЕНИЯ',
+              Strings.of(context).repeats,
               style: GoogleFonts.jost(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
@@ -93,7 +94,7 @@ class TableStats extends StatelessWidget {
         Column(
           children: [
             Text(
-              'ВЕС ( КГ )',
+              Strings.of(context).weightKG,
               style: GoogleFonts.jost(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,

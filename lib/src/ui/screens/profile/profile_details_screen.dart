@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
@@ -26,7 +27,7 @@ class ProfileDetailsScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          "ПРОФИЛЬ",
+          Strings.of(context).profile,
           style: AppStyles.jost12Bold,
         ),
       ),
@@ -41,17 +42,17 @@ class ProfileDetailsScreen extends StatelessWidget {
           ),
           const Gap(16),
           Text(
-            "ЛИЧНАЯ ИНФОРМАЦИЯ",
+            Strings.of(context).personalInfo,
             style: AppStyles.jost12Bold,
           ),
           const Gap(17),
           GLTextFormField(
-            initialValue: "Имя",
+            initialValue: Strings.of(context).nameLC,
             onChanged: (value) {},
           ),
           const Gap(8),
           GLTextFormField(
-            initialValue: "Фамилия",
+            initialValue: Strings.of(context).surnameLC,
             onChanged: (value) {},
           ),
           const Gap(8),
@@ -77,7 +78,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    "Ноябрь",
+                    Strings.of(context).november,
                     textAlign: TextAlign.center,
                     style: AppStyles.jost12,
                   ),
@@ -112,7 +113,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   ),
                   const Gap(8),
                   Text(
-                    "Мужчина",
+                    Strings.of(context).man,
                     style: AppStyles.jost12,
                   ),
                 ],
@@ -130,7 +131,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   ),
                   const Gap(8),
                   Text(
-                    "Женщина",
+                    Strings.of(context).woman,
                     style: AppStyles.jost12,
                   ),
                 ],
@@ -139,7 +140,7 @@ class ProfileDetailsScreen extends StatelessWidget {
           ),
           const Gap(37),
           Text(
-            "КОНТАКТЫ",
+            Strings.of(context).contacts,
             style: AppStyles.jost12Bold,
           ),
           const Gap(17),
@@ -150,7 +151,7 @@ class ProfileDetailsScreen extends StatelessWidget {
           const Spacer(),
           GLButton(
             color: AppColors.blue,
-            text: "СОХРАНИТЬ",
+            text: Strings.of(context).save,
             onPressed: () {},
           ),
           const Gap(16),
@@ -159,7 +160,7 @@ class ProfileDetailsScreen extends StatelessWidget {
           ),
           const Gap(16),
           Text(
-            "После удаления аккаунта востановить его будет невозможно.",
+            Strings.of(context).warningBeforeAccountDeletion,
             textAlign: TextAlign.center,
             style: AppStyles.jost12
                 .copyWith(color: AppColors.white.withOpacity(0.3)),
@@ -192,7 +193,7 @@ class DeleteAccountButton extends StatelessWidget {
         onPressed: onTap,
         child: Center(
           child: Text(
-            "УДАЛИТЬ АККАУНТ",
+            Strings.of(context).deleteAccount,
             style: AppStyles.jost12,
           ),
         ),

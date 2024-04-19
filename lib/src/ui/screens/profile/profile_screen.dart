@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
@@ -30,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const Gap(16),
                 Text(
-                  "Имя\nФамилия",
+                  "${Strings.of(context).name}\n${Strings.of(context).surname}",
                   style: AppStyles.jost12Bold,
                 ),
                 const Spacer(),
@@ -101,14 +102,14 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Единицы измерения",
+                  Strings.of(context).units,
                   style: AppStyles.jost14Bold,
                 ),
                 const Spacer(),
                 Row(
                   children: [
                     Text(
-                      "КГ",
+                      Strings.of(context).kgUC,
                       style:
                           AppStyles.jost12Bold.copyWith(color: AppColors.blue),
                     ),
@@ -122,14 +123,14 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Замеры",
+                  Strings.of(context).measurements,
                   style: AppStyles.jost14Bold,
                 ),
                 const Spacer(),
                 Row(
                   children: [
                     Text(
-                      "СМ",
+                      Strings.of(context).cm,
                       style:
                           AppStyles.jost12Bold.copyWith(color: AppColors.blue),
                     ),
@@ -143,14 +144,14 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Язык",
+                  Strings.of(context).language,
                   style: AppStyles.jost14Bold,
                 ),
                 const Spacer(),
                 Row(
                   children: [
                     Text(
-                      "РУС",
+                      Strings.of(context).rus,
                       style:
                           AppStyles.jost12Bold.copyWith(color: AppColors.blue),
                     ),
@@ -164,7 +165,7 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Apple здоровье",
+                  Strings.of(context).appleHealth,
                   style: AppStyles.jost14Bold,
                 ),
                 const Spacer(),
@@ -178,19 +179,19 @@ class ProfileScreen extends StatelessWidget {
             const Spacer(),
             ActionButton(
               icon: Assets.icons.profile.message.svg(),
-              text: "Написать разработчикам",
+              text: Strings.of(context).writeToTheDevelopers,
               onTap: () {},
             ),
             const Gap(32),
             GLButton(
-              text: "ВЫЙТИ ИЗ АККАУНТА",
+              text: Strings.of(context).logOutFromAccount,
               onPressed: () {
                 context.go("/");
               },
             ),
             const Gap(16),
             Text(
-              "Продолжая, вы соглашаетесь с правилами:",
+              Strings.of(context).confirmation,
               style: AppStyles.jost12,
             ),
             const Gap(8),
@@ -201,7 +202,7 @@ class ProfileScreen extends StatelessWidget {
                   child: Opacity(
                     opacity: 0.3,
                     child: Text(
-                      "Политика конфиденциальности",
+                      Strings.of(context).privacyPolicy,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: AppStyles.jost12,
@@ -211,7 +212,7 @@ class ProfileScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    "и",
+                    Strings.of(context).and,
                     style: AppStyles.jost12,
                   ),
                 ),
@@ -219,7 +220,7 @@ class ProfileScreen extends StatelessWidget {
                   child: Opacity(
                     opacity: 0.3,
                     child: Text(
-                      "Пользьзовательское соглашение",
+                      Strings.of(context).termsOfUse,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: AppStyles.jost12,
@@ -266,7 +267,7 @@ class ShowDetailsButton extends StatelessWidget {
         onPressed: onTap,
         child: Center(
           child: Text(
-            "Подробнее",
+            Strings.of(context).moreDetails,
             style: AppStyles.jost12Bold.copyWith(color: AppColors.blue),
           ),
         ),

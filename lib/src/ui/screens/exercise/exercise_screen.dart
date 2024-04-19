@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
@@ -101,7 +102,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                   style: AppStyles.jost14Bold.copyWith(color: AppColors.white),
                 ),
                 TextSpan(
-                  text: "${widget.sets} подхода",
+                  text: "${widget.sets} ${Strings.of(context).approaches}",
                   style: AppStyles.jost12.copyWith(color: AppColors.white),
                 ),
               ],

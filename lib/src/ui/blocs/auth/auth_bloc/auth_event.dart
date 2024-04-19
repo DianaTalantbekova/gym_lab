@@ -1,4 +1,4 @@
-part of './auth_bloc.dart';
+part of 'auth_bloc.dart';
 
 sealed class AuthEvent {
   const AuthEvent();
@@ -11,5 +11,5 @@ final class LogoutRequested extends AuthEvent {
 final class _UserChanged extends AuthEvent {
   const _UserChanged(this.user);
 
-  final User user;
+  final UserModel user;
 }

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../../infrastructure/resources/app_styles.dart';
@@ -72,14 +73,12 @@ class PremiumScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    """Достигни своей цели 
-с эффективной
-проверенной программой""",
+                    Strings.of(context).premiumDescr,
                     style: AppStyles.jost24Bold,
                   ),
                   const Gap(13),
                   Text(
-                    "Подпишись и открой полный доступ",
+                    Strings.of(context).subscribeAndGetFullAccess,
                     style: AppStyles.jost16Bold.copyWith(color: AppColors.blue),
                   ),
                   const Gap(24),
@@ -91,7 +90,7 @@ class PremiumScreen extends StatelessWidget {
                         const Gap(36),
                         Flexible(
                           child: Text(
-                            "Неограниченный доступ к тренировочным программам",
+                            Strings.of(context).unlimitedAccess,
                             style: AppStyles.jost16Bold,
                           ),
                         ),
@@ -107,7 +106,7 @@ class PremiumScreen extends StatelessWidget {
                         const Gap(36),
                         Flexible(
                           child: Text(
-                            "Полный доступ к функционалу приложения",
+                            Strings.of(context).fullAccess,
                             style: AppStyles.jost16Bold,
                           ),
                         ),
@@ -123,7 +122,7 @@ class PremiumScreen extends StatelessWidget {
                         const Gap(36),
                         Flexible(
                           child: Text(
-                            "Приоритетная техническая поддержка",
+                            Strings.of(context).priorityTechSupport,
                             style: AppStyles.jost16Bold,
                           ),
                         ),
@@ -135,7 +134,7 @@ class PremiumScreen extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       BuySubscriptionButton(
-                        text: """ПОДПИСКА НА ГОД 1990 р./год""",
+                        text: Strings.of(context).subscriptionForYear,
                         price: 165,
                         onPressed: () {},
                       ),
@@ -151,7 +150,7 @@ class PremiumScreen extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              "ВЫГОДА 33%",
+                              Strings.of(context).benefit33,
                               style: AppStyles.jost16Bold,
                             ),
                           ),
@@ -161,7 +160,7 @@ class PremiumScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   BuySubscriptionButton(
-                    text: "ПОДПИСКА НА МЕСЯЦ",
+                    text: Strings.of(context).subscriptionForMonth,
                     price: 249,
                     onPressed: () {},
                   ),
@@ -171,7 +170,7 @@ class PremiumScreen extends StatelessWidget {
                     children: [
                       RichText(
                         text: TextSpan(
-                            text: "Восстановить подписку",
+                            text: Strings.of(context).restoreSubscription,
                             style: AppStyles.jost16Bold
                                 .copyWith(color: AppColors.blue)),
                       ),
@@ -182,7 +181,7 @@ class PremiumScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Продолжая, вы соглашаетесь с правилами:",
+                        Strings.of(context).confirmation,
                         style: AppStyles.jost12,
                       ),
                     ],
@@ -195,7 +194,7 @@ class PremiumScreen extends StatelessWidget {
                         child: Opacity(
                           opacity: 0.3,
                           child: Text(
-                            "Политика конфиденциальности",
+                            Strings.of(context).privacyPolicy,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: AppStyles.jost12,
@@ -205,7 +204,7 @@ class PremiumScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          "и",
+                          Strings.of(context).and,
                           style: AppStyles.jost12,
                         ),
                       ),
@@ -213,7 +212,7 @@ class PremiumScreen extends StatelessWidget {
                         child: Opacity(
                           opacity: 0.3,
                           child: Text(
-                            "Пользьзовательское соглашение",
+                            Strings.of(context).termsOfUse,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: AppStyles.jost12,

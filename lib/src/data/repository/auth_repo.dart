@@ -4,145 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:google_sign_in/google_sign_in.dart';
 
-/// {@template sign_up_with_email_and_password_failure}
-/// Thrown during the sign up process if a failure occurs.
-/// {@endtemplate}
-class SignUpWithEmailAndPasswordFailure implements Exception {
-  /// {@macro sign_up_with_email_and_password_failure}
-  const SignUpWithEmailAndPasswordFailure([
-    this.message = 'An unknown exception occurred.',
-  ]);
-
-  /// Create an authentication message
-  /// from a firebase authentication exception code.
-  /// https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/createUserWithEmailAndPassword.html
-  factory SignUpWithEmailAndPasswordFailure.fromCode(String code) {
-    switch (code) {
-      case 'invalid-email':
-        return const SignUpWithEmailAndPasswordFailure(
-          'Email is not valid or badly formatted.',
-        );
-      case 'user-disabled':
-        return const SignUpWithEmailAndPasswordFailure(
-          'This user has been disabled. Please contact support for help.',
-        );
-      case 'email-already-in-use':
-        return const SignUpWithEmailAndPasswordFailure(
-          'An account already exists for that email.',
-        );
-      case 'operation-not-allowed':
-        return const SignUpWithEmailAndPasswordFailure(
-          'Operation is not allowed.  Please contact support.',
-        );
-      case 'weak-password':
-        return const SignUpWithEmailAndPasswordFailure(
-          'Please enter a stronger password.',
-        );
-      default:
-        return const SignUpWithEmailAndPasswordFailure();
-    }
-  }
-
-  /// The associated error message.
-  final String message;
-}
-
-/// {@template log_in_with_email_and_password_failure}
-/// Thrown during the login process if a failure occurs.
-/// https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/signInWithEmailAndPassword.html
-/// {@endtemplate}
-class LogInWithEmailAndPasswordFailure implements Exception {
-  /// {@macro log_in_with_email_and_password_failure}
-  const LogInWithEmailAndPasswordFailure([
-    this.message = 'An unknown exception occurred.',
-  ]);
-
-  /// Create an authentication message
-  /// from a firebase authentication exception code.
-  factory LogInWithEmailAndPasswordFailure.fromCode(String code) {
-    switch (code) {
-      case 'invalid-email':
-        return const LogInWithEmailAndPasswordFailure(
-          'Email is not valid or badly formatted.',
-        );
-      case 'user-disabled':
-        return const LogInWithEmailAndPasswordFailure(
-          'This user has been disabled. Please contact support for help.',
-        );
-      case 'user-not-found':
-        return const LogInWithEmailAndPasswordFailure(
-          'Email is not found, please create an account.',
-        );
-      case 'wrong-password':
-        return const LogInWithEmailAndPasswordFailure(
-          'Incorrect password, please try again.',
-        );
-      default:
-        return const LogInWithEmailAndPasswordFailure();
-    }
-  }
-
-  /// The associated error message.
-  final String message;
-}
-
-/// {@template log_in_with_google_failure}
-/// Thrown during the sign in with google process if a failure occurs.
-/// https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/signInWithCredential.html
-/// {@endtemplate}
-class LogInWithGoogleFailure implements Exception {
-  /// {@macro log_in_with_google_failure}
-  const LogInWithGoogleFailure([
-    this.message = 'An unknown exception occurred.',
-  ]);
-
-  /// Create an authentication message
-  /// from a firebase authentication exception code.
-  factory LogInWithGoogleFailure.fromCode(String code) {
-    switch (code) {
-      case 'account-exists-with-different-credential':
-        return const LogInWithGoogleFailure(
-          'Account exists with different credentials.',
-        );
-      case 'invalid-credential':
-        return const LogInWithGoogleFailure(
-          'The credential received is malformed or has expired.',
-        );
-      case 'operation-not-allowed':
-        return const LogInWithGoogleFailure(
-          'Operation is not allowed.  Please contact support.',
-        );
-      case 'user-disabled':
-        return const LogInWithGoogleFailure(
-          'This user has been disabled. Please contact support for help.',
-        );
-      case 'user-not-found':
-        return const LogInWithGoogleFailure(
-          'Email is not found, please create an account.',
-        );
-      case 'wrong-password':
-        return const LogInWithGoogleFailure(
-          'Incorrect password, please try again.',
-        );
-      case 'invalid-verification-code':
-        return const LogInWithGoogleFailure(
-          'The credential verification code received is invalid.',
-        );
-      case 'invalid-verification-id':
-        return const LogInWithGoogleFailure(
-          'The credential verification ID received is invalid.',
-        );
-      default:
-        return const LogInWithGoogleFailure();
-    }
-  }
-
-  /// The associated error message.
-  final String message;
-}
-
-/// Thrown during the logout process if a failure occurs.
-class LogOutFailure implements Exception {}
+import '../../domain/entity/user_entity.dart';
+import '../exeptions/auth_exeptions.dart';
 
 /// {@template authentication_repository}
 /// Repository which manages user authentication.
@@ -172,23 +35,25 @@ class AuthenticationRepository {
   @visibleForTesting
   static const userCacheKey = '__user_cache_key__';
 
-  /// Stream of [User] which will emit the current user when
+  /// Stream of [UserModel] which will emit the current user when
   /// the authentication state changes.
   ///
-  /// Emits [User.empty] if the user is not authenticated.
-  Stream<User> get user {
+  /// Emits [UserModel.empty] if the user is not authenticated.
+  Stream<UserModel> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
+      final user =
+          firebaseUser == null ? UserModel.empty : firebaseUser.toUser();
       // _cache.write(key: userCacheKey, value: user);
       return user;
     });
   }
 
   /// Returns the current cached user.
-  /// Defaults to [User.empty] if there is no cached user.
-  // User get currentUser {
-  //   return _cache.read<User>(key: userCacheKey) ?? User.empty;
-  // }
+  /// Defaults to [UserModel.empty] if there is no cached user.
+  UserModel get currentUser {
+    return _firebaseAuth.currentUser?.toUser() ?? UserModel.empty;
+    // return _cache.read<User>(key: userCacheKey) ?? User.empty;
+  }
 
   /// Creates a new user with the provided [email] and [password].
   ///
@@ -255,7 +120,7 @@ class AuthenticationRepository {
   }
 
   /// Signs out the current user which will emit
-  /// [User.empty] from the [user] Stream.
+  /// [UserModel.empty] from the [user] Stream.
   ///
   /// Throws a [LogOutFailure] if an exception occurs.
   Future<void> logOut() async {
@@ -270,26 +135,14 @@ class AuthenticationRepository {
   }
 }
 
-class User {
-  String? id;
-  String? email;
-  String? name;
-  String? photo;
-
-  User({
-    this.id,
-    this.name,
-    this.email,
-    this.photo,
-  });
-
-  /// Empty user which represents an unauthenticated user.
-  static final empty = User(id: '');
-}
-
 extension on firebase_auth.User {
-  /// Maps a [firebase_auth.User] into a [User].
-  User get toUser {
-    return User(id: uid, email: email, name: displayName, photo: photoURL);
+  /// Maps a [firebase_auth.User] into a [UserModel].
+  UserModel toUser() {
+    return UserModel(
+      id: uid,
+      email: email,
+      name: displayName,
+      photo: photoURL,
+    );
   }
 }

@@ -1,9 +1,6 @@
-part of './auth_bloc.dart';
+part of 'auth_bloc.dart';
 
-enum AuthStatus {
-  authenticated,
-  unauthenticated,
-}
+enum AuthStatus { authenticated, unauthenticated }
 
 final class AuthState {
   const AuthState._({
@@ -11,12 +8,12 @@ final class AuthState {
     required this.user,
   });
 
-  const AuthState.authenticated(User user)
+  const AuthState.authenticated(UserModel user)
       : this._(status: AuthStatus.authenticated, user: user);
 
   AuthState.unauthenticated()
-      : this._(status: AuthStatus.unauthenticated, user: User.empty);
+      : this._(status: AuthStatus.unauthenticated, user: UserModel.empty);
 
   final AuthStatus status;
-  final User user;
+  final UserModel user;
 }
