@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 class GlBottomStatusBar extends StatelessWidget {
   const GlBottomStatusBar({super.key});
@@ -27,7 +28,7 @@ class GlBottomStatusBar extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'УПРАЖНЕНИЕ',
+                  Strings.of(context).exercise,
                   style: GoogleFonts.jost(
                     fontSize: 10,
                     fontWeight: FontWeight.w700,
@@ -56,7 +57,7 @@ class GlBottomStatusBar extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'КРУГ',
+                  Strings.of(context).circle,
                   style: GoogleFonts.jost(
                     fontSize: 10,
                     fontWeight: FontWeight.w700,

@@ -47,13 +47,15 @@ class AppRouter {
             routes: [
               GoRoute(
                 name: TrainingScreen.route,
-                path: "/${TrainingScreen.route}",
+                path: "/$TrainingScreen.route",
                 builder: (context, state) => const TrainingScreen(),
                 routes: [
                   GoRoute(
                     name: TrainingDetailsScreen.route,
                     path: TrainingDetailsScreen.route,
-                    builder: (context, state) => const TrainingDetailsScreen(),
+                    builder: (context, state) => TrainingDetailsScreen(
+                      trainingId: state.extra as int,
+                    ),
                   ),
                   GoRoute(
                     parentNavigatorKey: _rootKey,

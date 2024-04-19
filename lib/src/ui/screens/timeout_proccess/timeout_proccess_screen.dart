@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../../infrastructure/resources/app_colors.dart';
 import '../../widgets/buttons.dart';
@@ -23,7 +25,7 @@ class TimeoutProcessPage extends StatelessWidget {
     return GLScaffold(
       appBar: GLAppBar(
         title: Text(
-          'РАБОТА',
+          Strings.of(context).work,
           style: GoogleFonts.jost(
             fontSize: 12,
             fontWeight: FontWeight.w700,
@@ -40,8 +42,7 @@ class TimeoutProcessPage extends StatelessWidget {
             context.goNamed(CircuitTrainingScreen.route);
           },
         ),
-        action: Image.asset(
-          'assets/icons/timer/sound_max.png',
+        action: Assets.icons.timer.soundMax.image(
           width: 25,
           height: 25,
         ),
@@ -63,7 +64,7 @@ class TimeoutProcessPage extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    'Приостановить тренировку,если я выхожу из приложения',
+                    Strings.of(context).pauseTheWorkoutIfIExitTheApp,
                     style: GoogleFonts.jost(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -81,8 +82,7 @@ class TimeoutProcessPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 72),
-          Image.asset(
-            'assets/icons/timer/Group 8647 (1).png',
+          Assets.icons.timer.group8647.image(
             width: 250,
             height: 250,
           ),
@@ -91,7 +91,7 @@ class TimeoutProcessPage extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'далее',
+                  Strings.of(context).next,
                   style: GoogleFonts.jost(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
@@ -100,7 +100,7 @@ class TimeoutProcessPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'УПРАЖНЕНИЕ 1',
+                  '${Strings.of(context).exercise} 1',
                   style: GoogleFonts.jost(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
@@ -111,8 +111,7 @@ class TimeoutProcessPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 80),
-          Image.asset(
-            'assets/icons/timer/Group 8645 (3).png',
+          Assets.icons.timer.group8645.image(
             width: 240,
             height: 80,
           ),

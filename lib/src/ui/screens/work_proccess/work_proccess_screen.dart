@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 
 import '../../widgets/buttons.dart';
 import '../../widgets/gl_app_bar.dart';
@@ -22,7 +24,7 @@ class WorkProcessScreen extends StatelessWidget {
     return GLScaffold(
       appBar: GLAppBar(
         title: Text(
-          'РАБОТА',
+          Strings.of(context).work,
           style: GoogleFonts.jost(
             fontSize: 12,
             fontWeight: FontWeight.w700,
@@ -39,8 +41,7 @@ class WorkProcessScreen extends StatelessWidget {
             context.pop();
           },
         ),
-        action: Image.asset(
-          'assets/icons/timer/sound_max.png',
+        action: Assets.icons.timer.soundMax.image(
           width: 25,
           height: 25,
         ),
@@ -62,7 +63,7 @@ class WorkProcessScreen extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    'Приостановить тренировку,если я выхожу из приложения',
+                    Strings.of(context).pauseTheWorkoutIfIExitTheApp,
                     style: GoogleFonts.jost(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -80,8 +81,7 @@ class WorkProcessScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 72),
-          Image.asset(
-            'assets/icons/timer/Group 8644.png',
+          Assets.icons.timer.group8644.image(
             width: 250,
             height: 250,
           ),
@@ -99,7 +99,7 @@ class WorkProcessScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'УПРАЖНЕНИЕ 1',
+                  '${Strings.of(context).exercise} 1',
                   style: GoogleFonts.jost(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
@@ -110,8 +110,7 @@ class WorkProcessScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 80),
-          Image.asset(
-            'assets/icons/timer/Group 8645 (2).png',
+          Assets.icons.timer.group86452.image(
             width: 240,
             height: 80,
           ),

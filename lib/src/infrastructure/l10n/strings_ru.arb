@@ -1,4 +1,5 @@
 {
+  "exerciseCategory": "{value}",
   "@@locale": "ru",
   "authorize": "Авторизоваться",
   "forgotPassword": "Забыли пароль ?",
@@ -98,5 +99,10 @@
   "benefit33": "ВЫГОДА 33%",
   "subscriptionForMonth": "ПОДПИСКА НА МЕСЯЦ",
   "restoreSubscription": "Восстановить подписку",
-  "rubMonth": "р./мес."
+  "rubMonth": "р./мес.",
+  "pauseTheWorkoutIfIExitTheApp": "Приостановить тренировку,если я выхожу из приложения",
+  "now": "сейчас",
+  "exercise": "УПРАЖНЕНИЕ",
+  "circle": "КРУГ",
+  "next": "далее"
 }
