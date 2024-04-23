@@ -1,5 +1,5 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -93,7 +93,7 @@ class _TrainingDetailsScreenState extends State<TrainingDetailsScreen> {
                       isExpanded: _isExpandedList[index],
                       image: Assets.images.exercise1.provider(),
                       name: exercises[index].name,
-                      sets: exercises[index].approaches!.length,
+                      sets: exercises[index].approaches?.length ?? 0,
                       exerciseIndex: index,
                     ),
                     separatorBuilder: (context, index) => const Gap(16),
@@ -222,15 +222,22 @@ class _ExerciseCardState extends State<ExerciseCard> {
               child: Column(
                 children: [
                   const Gap(32),
-                  BlocBuilder<TrainingBloc, TrainingState>(
+                  BlocConsumer<TrainingBloc, TrainingState>(
+                    listener: (context, state) {
+                      if (state.error != null) {
+                        FlushbarHelper.createError(message: state.error!)
+                            .show(context);
+                      }
+                    },
                     buildWhen: (previous, current) =>
                         previous.trainings[trainingIndex]
-                            .exercises![widget.exerciseIndex].approaches !=
+                            .exercises?[widget.exerciseIndex].approaches !=
                         current.trainings[trainingIndex]
-                            .exercises![widget.exerciseIndex].approaches,
+                            .exercises?[widget.exerciseIndex].approaches,
                     builder: (context, state) {
                       final approaches = state.trainings[trainingIndex]
-                          .exercises![widget.exerciseIndex].approaches!;
+                              .exercises?[widget.exerciseIndex].approaches ??
+                          <ApproachEntity>[];
 
                       repsControllers = List.generate(
                           approaches.length,

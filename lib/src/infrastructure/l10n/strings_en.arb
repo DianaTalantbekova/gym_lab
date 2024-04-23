@@ -104,5 +104,10 @@
   "now": "now",
   "exercise": "EXERCISE",
   "circle": "CIRCLE",
-  "next": "next"
+  "next": "next",
+  "selectDifficulty": "SELECT DIFFICULTY",
+  "easy": "Easy",
+  "normal": "Normal",
+  "difficult": "Difficult",
+  "done": "DONE"
 }

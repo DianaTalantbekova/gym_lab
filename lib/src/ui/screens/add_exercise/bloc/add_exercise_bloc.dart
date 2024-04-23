@@ -19,7 +19,6 @@ class AddExerciseBloc extends Bloc<AddExerciseEvent, AddExerciseState> {
       final Map<String, List<ExerciseEntity>> letters = {};
       final items = [
         ExerciseEntity(
-          id: 0,
           exerciseType: [ExerciseType.biceps, ExerciseType.chest, ExerciseType.all],
           name: 'жим лежа',
           imageUrl: Assets.images.exercise1.path,
@@ -27,25 +26,21 @@ class AddExerciseBloc extends Bloc<AddExerciseEvent, AddExerciseState> {
           restTime: null,
         ),
         ExerciseEntity(
-          id: 1,
           exerciseType: [ExerciseType.back, ExerciseType.all],
           name: 'приседания',
           imageUrl: Assets.images.exercise1.path,
         ),
         ExerciseEntity(
-          id: 2,
           exerciseType: [ExerciseType.triceps,ExerciseType.biceps, ExerciseType.all],
           name: 'подтягивания',
           imageUrl: Assets.images.exercise1.path,
         ),
         ExerciseEntity(
-          id: 3,
           exerciseType: [ExerciseType.back, ExerciseType.all],
           name: 'бег',
           imageUrl: Assets.images.exercise1.path,
         ),
         ExerciseEntity(
-          id: 4,
           exerciseType: [ExerciseType.chest, ExerciseType.press, ExerciseType.all],
           name: 'планка',
           imageUrl: Assets.images.exercise1.path,

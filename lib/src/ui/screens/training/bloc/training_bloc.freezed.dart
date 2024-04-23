@@ -20,39 +20,39 @@ mixin _$TrainingEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(dynamic isRefresh) started,
     required TResult Function() trainingDetailsOpened,
-    required TResult Function(TrainingEntity newTraining) addNewTraining,
     required TResult Function(int trainingId, int exerciseId, int approachId,
             int? reps, int? weight, ApproachComplexity? exerciseComplexity)
         approachDetailsChanged,
     required TResult Function(int trainingId, int exerciseId, int approachId)
         approachDeleted,
     required TResult Function(int trainingId, int exerciseId) approachAdded,
+    required TResult Function(dynamic isRefresh) watchTrainingsStarted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(dynamic isRefresh)? started,
     TResult? Function()? trainingDetailsOpened,
-    TResult? Function(TrainingEntity newTraining)? addNewTraining,
     TResult? Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult? Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult? Function(int trainingId, int exerciseId)? approachAdded,
+    TResult? Function(dynamic isRefresh)? watchTrainingsStarted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(dynamic isRefresh)? started,
     TResult Function()? trainingDetailsOpened,
-    TResult Function(TrainingEntity newTraining)? addNewTraining,
     TResult Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult Function(int trainingId, int exerciseId)? approachAdded,
+    TResult Function(dynamic isRefresh)? watchTrainingsStarted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,31 +61,32 @@ mixin _$TrainingEvent {
     required TResult Function(Started value) started,
     required TResult Function(TrainingDetailsOpened value)
         trainingDetailsOpened,
-    required TResult Function(AddNewTraining value) addNewTraining,
     required TResult Function(ApproachDetailsChanged value)
         approachDetailsChanged,
     required TResult Function(ApproachDeleted value) approachDeleted,
     required TResult Function(ApproachAdded value) approachAdded,
+    required TResult Function(WatchTrainingsStarted value)
+        watchTrainingsStarted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Started value)? started,
     TResult? Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult? Function(AddNewTraining value)? addNewTraining,
     TResult? Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult? Function(ApproachDeleted value)? approachDeleted,
     TResult? Function(ApproachAdded value)? approachAdded,
+    TResult? Function(WatchTrainingsStarted value)? watchTrainingsStarted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Started value)? started,
     TResult Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult Function(AddNewTraining value)? addNewTraining,
     TResult Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult Function(ApproachDeleted value)? approachDeleted,
     TResult Function(ApproachAdded value)? approachAdded,
+    TResult Function(WatchTrainingsStarted value)? watchTrainingsStarted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -174,13 +175,13 @@ class _$StartedImpl implements Started {
   TResult when<TResult extends Object?>({
     required TResult Function(dynamic isRefresh) started,
     required TResult Function() trainingDetailsOpened,
-    required TResult Function(TrainingEntity newTraining) addNewTraining,
     required TResult Function(int trainingId, int exerciseId, int approachId,
             int? reps, int? weight, ApproachComplexity? exerciseComplexity)
         approachDetailsChanged,
     required TResult Function(int trainingId, int exerciseId, int approachId)
         approachDeleted,
     required TResult Function(int trainingId, int exerciseId) approachAdded,
+    required TResult Function(dynamic isRefresh) watchTrainingsStarted,
   }) {
     return started(isRefresh);
   }
@@ -190,13 +191,13 @@ class _$StartedImpl implements Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(dynamic isRefresh)? started,
     TResult? Function()? trainingDetailsOpened,
-    TResult? Function(TrainingEntity newTraining)? addNewTraining,
     TResult? Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult? Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult? Function(int trainingId, int exerciseId)? approachAdded,
+    TResult? Function(dynamic isRefresh)? watchTrainingsStarted,
   }) {
     return started?.call(isRefresh);
   }
@@ -206,13 +207,13 @@ class _$StartedImpl implements Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(dynamic isRefresh)? started,
     TResult Function()? trainingDetailsOpened,
-    TResult Function(TrainingEntity newTraining)? addNewTraining,
     TResult Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult Function(int trainingId, int exerciseId)? approachAdded,
+    TResult Function(dynamic isRefresh)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -227,11 +228,12 @@ class _$StartedImpl implements Started {
     required TResult Function(Started value) started,
     required TResult Function(TrainingDetailsOpened value)
         trainingDetailsOpened,
-    required TResult Function(AddNewTraining value) addNewTraining,
     required TResult Function(ApproachDetailsChanged value)
         approachDetailsChanged,
     required TResult Function(ApproachDeleted value) approachDeleted,
     required TResult Function(ApproachAdded value) approachAdded,
+    required TResult Function(WatchTrainingsStarted value)
+        watchTrainingsStarted,
   }) {
     return started(this);
   }
@@ -241,10 +243,10 @@ class _$StartedImpl implements Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Started value)? started,
     TResult? Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult? Function(AddNewTraining value)? addNewTraining,
     TResult? Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult? Function(ApproachDeleted value)? approachDeleted,
     TResult? Function(ApproachAdded value)? approachAdded,
+    TResult? Function(WatchTrainingsStarted value)? watchTrainingsStarted,
   }) {
     return started?.call(this);
   }
@@ -254,10 +256,10 @@ class _$StartedImpl implements Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Started value)? started,
     TResult Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult Function(AddNewTraining value)? addNewTraining,
     TResult Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult Function(ApproachDeleted value)? approachDeleted,
     TResult Function(ApproachAdded value)? approachAdded,
+    TResult Function(WatchTrainingsStarted value)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -318,13 +320,13 @@ class _$TrainingDetailsOpenedImpl implements TrainingDetailsOpened {
   TResult when<TResult extends Object?>({
     required TResult Function(dynamic isRefresh) started,
     required TResult Function() trainingDetailsOpened,
-    required TResult Function(TrainingEntity newTraining) addNewTraining,
     required TResult Function(int trainingId, int exerciseId, int approachId,
             int? reps, int? weight, ApproachComplexity? exerciseComplexity)
         approachDetailsChanged,
     required TResult Function(int trainingId, int exerciseId, int approachId)
         approachDeleted,
     required TResult Function(int trainingId, int exerciseId) approachAdded,
+    required TResult Function(dynamic isRefresh) watchTrainingsStarted,
   }) {
     return trainingDetailsOpened();
   }
@@ -334,13 +336,13 @@ class _$TrainingDetailsOpenedImpl implements TrainingDetailsOpened {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(dynamic isRefresh)? started,
     TResult? Function()? trainingDetailsOpened,
-    TResult? Function(TrainingEntity newTraining)? addNewTraining,
     TResult? Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult? Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult? Function(int trainingId, int exerciseId)? approachAdded,
+    TResult? Function(dynamic isRefresh)? watchTrainingsStarted,
   }) {
     return trainingDetailsOpened?.call();
   }
@@ -350,13 +352,13 @@ class _$TrainingDetailsOpenedImpl implements TrainingDetailsOpened {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(dynamic isRefresh)? started,
     TResult Function()? trainingDetailsOpened,
-    TResult Function(TrainingEntity newTraining)? addNewTraining,
     TResult Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult Function(int trainingId, int exerciseId)? approachAdded,
+    TResult Function(dynamic isRefresh)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (trainingDetailsOpened != null) {
@@ -371,11 +373,12 @@ class _$TrainingDetailsOpenedImpl implements TrainingDetailsOpened {
     required TResult Function(Started value) started,
     required TResult Function(TrainingDetailsOpened value)
         trainingDetailsOpened,
-    required TResult Function(AddNewTraining value) addNewTraining,
     required TResult Function(ApproachDetailsChanged value)
         approachDetailsChanged,
     required TResult Function(ApproachDeleted value) approachDeleted,
     required TResult Function(ApproachAdded value) approachAdded,
+    required TResult Function(WatchTrainingsStarted value)
+        watchTrainingsStarted,
   }) {
     return trainingDetailsOpened(this);
   }
@@ -385,10 +388,10 @@ class _$TrainingDetailsOpenedImpl implements TrainingDetailsOpened {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Started value)? started,
     TResult? Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult? Function(AddNewTraining value)? addNewTraining,
     TResult? Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult? Function(ApproachDeleted value)? approachDeleted,
     TResult? Function(ApproachAdded value)? approachAdded,
+    TResult? Function(WatchTrainingsStarted value)? watchTrainingsStarted,
   }) {
     return trainingDetailsOpened?.call(this);
   }
@@ -398,10 +401,10 @@ class _$TrainingDetailsOpenedImpl implements TrainingDetailsOpened {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Started value)? started,
     TResult Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult Function(AddNewTraining value)? addNewTraining,
     TResult Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult Function(ApproachDeleted value)? approachDeleted,
     TResult Function(ApproachAdded value)? approachAdded,
+    TResult Function(WatchTrainingsStarted value)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (trainingDetailsOpened != null) {
@@ -413,177 +416,6 @@ class _$TrainingDetailsOpenedImpl implements TrainingDetailsOpened {
 
 abstract class TrainingDetailsOpened implements TrainingEvent {
   const factory TrainingDetailsOpened() = _$TrainingDetailsOpenedImpl;
-}
-
-/// @nodoc
-abstract class _$$AddNewTrainingImplCopyWith<$Res> {
-  factory _$$AddNewTrainingImplCopyWith(_$AddNewTrainingImpl value,
-          $Res Function(_$AddNewTrainingImpl) then) =
-      __$$AddNewTrainingImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({TrainingEntity newTraining});
-}
-
-/// @nodoc
-class __$$AddNewTrainingImplCopyWithImpl<$Res>
-    extends _$TrainingEventCopyWithImpl<$Res, _$AddNewTrainingImpl>
-    implements _$$AddNewTrainingImplCopyWith<$Res> {
-  __$$AddNewTrainingImplCopyWithImpl(
-      _$AddNewTrainingImpl _value, $Res Function(_$AddNewTrainingImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newTraining = null,
-  }) {
-    return _then(_$AddNewTrainingImpl(
-      newTraining: null == newTraining
-          ? _value.newTraining
-          : newTraining // ignore: cast_nullable_to_non_nullable
-              as TrainingEntity,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AddNewTrainingImpl implements AddNewTraining {
-  const _$AddNewTrainingImpl({required this.newTraining});
-
-  @override
-  final TrainingEntity newTraining;
-
-  @override
-  String toString() {
-    return 'TrainingEvent.addNewTraining(newTraining: $newTraining)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddNewTrainingImpl &&
-            (identical(other.newTraining, newTraining) ||
-                other.newTraining == newTraining));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, newTraining);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AddNewTrainingImplCopyWith<_$AddNewTrainingImpl> get copyWith =>
-      __$$AddNewTrainingImplCopyWithImpl<_$AddNewTrainingImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(dynamic isRefresh) started,
-    required TResult Function() trainingDetailsOpened,
-    required TResult Function(TrainingEntity newTraining) addNewTraining,
-    required TResult Function(int trainingId, int exerciseId, int approachId,
-            int? reps, int? weight, ApproachComplexity? exerciseComplexity)
-        approachDetailsChanged,
-    required TResult Function(int trainingId, int exerciseId, int approachId)
-        approachDeleted,
-    required TResult Function(int trainingId, int exerciseId) approachAdded,
-  }) {
-    return addNewTraining(newTraining);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(dynamic isRefresh)? started,
-    TResult? Function()? trainingDetailsOpened,
-    TResult? Function(TrainingEntity newTraining)? addNewTraining,
-    TResult? Function(int trainingId, int exerciseId, int approachId, int? reps,
-            int? weight, ApproachComplexity? exerciseComplexity)?
-        approachDetailsChanged,
-    TResult? Function(int trainingId, int exerciseId, int approachId)?
-        approachDeleted,
-    TResult? Function(int trainingId, int exerciseId)? approachAdded,
-  }) {
-    return addNewTraining?.call(newTraining);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(dynamic isRefresh)? started,
-    TResult Function()? trainingDetailsOpened,
-    TResult Function(TrainingEntity newTraining)? addNewTraining,
-    TResult Function(int trainingId, int exerciseId, int approachId, int? reps,
-            int? weight, ApproachComplexity? exerciseComplexity)?
-        approachDetailsChanged,
-    TResult Function(int trainingId, int exerciseId, int approachId)?
-        approachDeleted,
-    TResult Function(int trainingId, int exerciseId)? approachAdded,
-    required TResult orElse(),
-  }) {
-    if (addNewTraining != null) {
-      return addNewTraining(newTraining);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Started value) started,
-    required TResult Function(TrainingDetailsOpened value)
-        trainingDetailsOpened,
-    required TResult Function(AddNewTraining value) addNewTraining,
-    required TResult Function(ApproachDetailsChanged value)
-        approachDetailsChanged,
-    required TResult Function(ApproachDeleted value) approachDeleted,
-    required TResult Function(ApproachAdded value) approachAdded,
-  }) {
-    return addNewTraining(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Started value)? started,
-    TResult? Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult? Function(AddNewTraining value)? addNewTraining,
-    TResult? Function(ApproachDetailsChanged value)? approachDetailsChanged,
-    TResult? Function(ApproachDeleted value)? approachDeleted,
-    TResult? Function(ApproachAdded value)? approachAdded,
-  }) {
-    return addNewTraining?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Started value)? started,
-    TResult Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult Function(AddNewTraining value)? addNewTraining,
-    TResult Function(ApproachDetailsChanged value)? approachDetailsChanged,
-    TResult Function(ApproachDeleted value)? approachDeleted,
-    TResult Function(ApproachAdded value)? approachAdded,
-    required TResult orElse(),
-  }) {
-    if (addNewTraining != null) {
-      return addNewTraining(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AddNewTraining implements TrainingEvent {
-  const factory AddNewTraining({required final TrainingEntity newTraining}) =
-      _$AddNewTrainingImpl;
-
-  TrainingEntity get newTraining;
-  @JsonKey(ignore: true)
-  _$$AddNewTrainingImplCopyWith<_$AddNewTrainingImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -712,13 +544,13 @@ class _$ApproachDetailsChangedImpl implements ApproachDetailsChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(dynamic isRefresh) started,
     required TResult Function() trainingDetailsOpened,
-    required TResult Function(TrainingEntity newTraining) addNewTraining,
     required TResult Function(int trainingId, int exerciseId, int approachId,
             int? reps, int? weight, ApproachComplexity? exerciseComplexity)
         approachDetailsChanged,
     required TResult Function(int trainingId, int exerciseId, int approachId)
         approachDeleted,
     required TResult Function(int trainingId, int exerciseId) approachAdded,
+    required TResult Function(dynamic isRefresh) watchTrainingsStarted,
   }) {
     return approachDetailsChanged(
         trainingId, exerciseId, approachId, reps, weight, exerciseComplexity);
@@ -729,13 +561,13 @@ class _$ApproachDetailsChangedImpl implements ApproachDetailsChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(dynamic isRefresh)? started,
     TResult? Function()? trainingDetailsOpened,
-    TResult? Function(TrainingEntity newTraining)? addNewTraining,
     TResult? Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult? Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult? Function(int trainingId, int exerciseId)? approachAdded,
+    TResult? Function(dynamic isRefresh)? watchTrainingsStarted,
   }) {
     return approachDetailsChanged?.call(
         trainingId, exerciseId, approachId, reps, weight, exerciseComplexity);
@@ -746,13 +578,13 @@ class _$ApproachDetailsChangedImpl implements ApproachDetailsChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(dynamic isRefresh)? started,
     TResult Function()? trainingDetailsOpened,
-    TResult Function(TrainingEntity newTraining)? addNewTraining,
     TResult Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult Function(int trainingId, int exerciseId)? approachAdded,
+    TResult Function(dynamic isRefresh)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (approachDetailsChanged != null) {
@@ -768,11 +600,12 @@ class _$ApproachDetailsChangedImpl implements ApproachDetailsChanged {
     required TResult Function(Started value) started,
     required TResult Function(TrainingDetailsOpened value)
         trainingDetailsOpened,
-    required TResult Function(AddNewTraining value) addNewTraining,
     required TResult Function(ApproachDetailsChanged value)
         approachDetailsChanged,
     required TResult Function(ApproachDeleted value) approachDeleted,
     required TResult Function(ApproachAdded value) approachAdded,
+    required TResult Function(WatchTrainingsStarted value)
+        watchTrainingsStarted,
   }) {
     return approachDetailsChanged(this);
   }
@@ -782,10 +615,10 @@ class _$ApproachDetailsChangedImpl implements ApproachDetailsChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Started value)? started,
     TResult? Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult? Function(AddNewTraining value)? addNewTraining,
     TResult? Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult? Function(ApproachDeleted value)? approachDeleted,
     TResult? Function(ApproachAdded value)? approachAdded,
+    TResult? Function(WatchTrainingsStarted value)? watchTrainingsStarted,
   }) {
     return approachDetailsChanged?.call(this);
   }
@@ -795,10 +628,10 @@ class _$ApproachDetailsChangedImpl implements ApproachDetailsChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Started value)? started,
     TResult Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult Function(AddNewTraining value)? addNewTraining,
     TResult Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult Function(ApproachDeleted value)? approachDeleted,
     TResult Function(ApproachAdded value)? approachAdded,
+    TResult Function(WatchTrainingsStarted value)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (approachDetailsChanged != null) {
@@ -919,13 +752,13 @@ class _$ApproachDeletedImpl implements ApproachDeleted {
   TResult when<TResult extends Object?>({
     required TResult Function(dynamic isRefresh) started,
     required TResult Function() trainingDetailsOpened,
-    required TResult Function(TrainingEntity newTraining) addNewTraining,
     required TResult Function(int trainingId, int exerciseId, int approachId,
             int? reps, int? weight, ApproachComplexity? exerciseComplexity)
         approachDetailsChanged,
     required TResult Function(int trainingId, int exerciseId, int approachId)
         approachDeleted,
     required TResult Function(int trainingId, int exerciseId) approachAdded,
+    required TResult Function(dynamic isRefresh) watchTrainingsStarted,
   }) {
     return approachDeleted(trainingId, exerciseId, approachId);
   }
@@ -935,13 +768,13 @@ class _$ApproachDeletedImpl implements ApproachDeleted {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(dynamic isRefresh)? started,
     TResult? Function()? trainingDetailsOpened,
-    TResult? Function(TrainingEntity newTraining)? addNewTraining,
     TResult? Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult? Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult? Function(int trainingId, int exerciseId)? approachAdded,
+    TResult? Function(dynamic isRefresh)? watchTrainingsStarted,
   }) {
     return approachDeleted?.call(trainingId, exerciseId, approachId);
   }
@@ -951,13 +784,13 @@ class _$ApproachDeletedImpl implements ApproachDeleted {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(dynamic isRefresh)? started,
     TResult Function()? trainingDetailsOpened,
-    TResult Function(TrainingEntity newTraining)? addNewTraining,
     TResult Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult Function(int trainingId, int exerciseId)? approachAdded,
+    TResult Function(dynamic isRefresh)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (approachDeleted != null) {
@@ -972,11 +805,12 @@ class _$ApproachDeletedImpl implements ApproachDeleted {
     required TResult Function(Started value) started,
     required TResult Function(TrainingDetailsOpened value)
         trainingDetailsOpened,
-    required TResult Function(AddNewTraining value) addNewTraining,
     required TResult Function(ApproachDetailsChanged value)
         approachDetailsChanged,
     required TResult Function(ApproachDeleted value) approachDeleted,
     required TResult Function(ApproachAdded value) approachAdded,
+    required TResult Function(WatchTrainingsStarted value)
+        watchTrainingsStarted,
   }) {
     return approachDeleted(this);
   }
@@ -986,10 +820,10 @@ class _$ApproachDeletedImpl implements ApproachDeleted {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Started value)? started,
     TResult? Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult? Function(AddNewTraining value)? addNewTraining,
     TResult? Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult? Function(ApproachDeleted value)? approachDeleted,
     TResult? Function(ApproachAdded value)? approachAdded,
+    TResult? Function(WatchTrainingsStarted value)? watchTrainingsStarted,
   }) {
     return approachDeleted?.call(this);
   }
@@ -999,10 +833,10 @@ class _$ApproachDeletedImpl implements ApproachDeleted {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Started value)? started,
     TResult Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult Function(AddNewTraining value)? addNewTraining,
     TResult Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult Function(ApproachDeleted value)? approachDeleted,
     TResult Function(ApproachAdded value)? approachAdded,
+    TResult Function(WatchTrainingsStarted value)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (approachDeleted != null) {
@@ -1103,13 +937,13 @@ class _$ApproachAddedImpl implements ApproachAdded {
   TResult when<TResult extends Object?>({
     required TResult Function(dynamic isRefresh) started,
     required TResult Function() trainingDetailsOpened,
-    required TResult Function(TrainingEntity newTraining) addNewTraining,
     required TResult Function(int trainingId, int exerciseId, int approachId,
             int? reps, int? weight, ApproachComplexity? exerciseComplexity)
         approachDetailsChanged,
     required TResult Function(int trainingId, int exerciseId, int approachId)
         approachDeleted,
     required TResult Function(int trainingId, int exerciseId) approachAdded,
+    required TResult Function(dynamic isRefresh) watchTrainingsStarted,
   }) {
     return approachAdded(trainingId, exerciseId);
   }
@@ -1119,13 +953,13 @@ class _$ApproachAddedImpl implements ApproachAdded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(dynamic isRefresh)? started,
     TResult? Function()? trainingDetailsOpened,
-    TResult? Function(TrainingEntity newTraining)? addNewTraining,
     TResult? Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult? Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult? Function(int trainingId, int exerciseId)? approachAdded,
+    TResult? Function(dynamic isRefresh)? watchTrainingsStarted,
   }) {
     return approachAdded?.call(trainingId, exerciseId);
   }
@@ -1135,13 +969,13 @@ class _$ApproachAddedImpl implements ApproachAdded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(dynamic isRefresh)? started,
     TResult Function()? trainingDetailsOpened,
-    TResult Function(TrainingEntity newTraining)? addNewTraining,
     TResult Function(int trainingId, int exerciseId, int approachId, int? reps,
             int? weight, ApproachComplexity? exerciseComplexity)?
         approachDetailsChanged,
     TResult Function(int trainingId, int exerciseId, int approachId)?
         approachDeleted,
     TResult Function(int trainingId, int exerciseId)? approachAdded,
+    TResult Function(dynamic isRefresh)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (approachAdded != null) {
@@ -1156,11 +990,12 @@ class _$ApproachAddedImpl implements ApproachAdded {
     required TResult Function(Started value) started,
     required TResult Function(TrainingDetailsOpened value)
         trainingDetailsOpened,
-    required TResult Function(AddNewTraining value) addNewTraining,
     required TResult Function(ApproachDetailsChanged value)
         approachDetailsChanged,
     required TResult Function(ApproachDeleted value) approachDeleted,
     required TResult Function(ApproachAdded value) approachAdded,
+    required TResult Function(WatchTrainingsStarted value)
+        watchTrainingsStarted,
   }) {
     return approachAdded(this);
   }
@@ -1170,10 +1005,10 @@ class _$ApproachAddedImpl implements ApproachAdded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Started value)? started,
     TResult? Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult? Function(AddNewTraining value)? addNewTraining,
     TResult? Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult? Function(ApproachDeleted value)? approachDeleted,
     TResult? Function(ApproachAdded value)? approachAdded,
+    TResult? Function(WatchTrainingsStarted value)? watchTrainingsStarted,
   }) {
     return approachAdded?.call(this);
   }
@@ -1183,10 +1018,10 @@ class _$ApproachAddedImpl implements ApproachAdded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Started value)? started,
     TResult Function(TrainingDetailsOpened value)? trainingDetailsOpened,
-    TResult Function(AddNewTraining value)? addNewTraining,
     TResult Function(ApproachDetailsChanged value)? approachDetailsChanged,
     TResult Function(ApproachDeleted value)? approachDeleted,
     TResult Function(ApproachAdded value)? approachAdded,
+    TResult Function(WatchTrainingsStarted value)? watchTrainingsStarted,
     required TResult orElse(),
   }) {
     if (approachAdded != null) {
@@ -1206,6 +1041,177 @@ abstract class ApproachAdded implements TrainingEvent {
   @JsonKey(ignore: true)
   _$$ApproachAddedImplCopyWith<_$ApproachAddedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$WatchTrainingsStartedImplCopyWith<$Res> {
+  factory _$$WatchTrainingsStartedImplCopyWith(
+          _$WatchTrainingsStartedImpl value,
+          $Res Function(_$WatchTrainingsStartedImpl) then) =
+      __$$WatchTrainingsStartedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({dynamic isRefresh});
+}
+
+/// @nodoc
+class __$$WatchTrainingsStartedImplCopyWithImpl<$Res>
+    extends _$TrainingEventCopyWithImpl<$Res, _$WatchTrainingsStartedImpl>
+    implements _$$WatchTrainingsStartedImplCopyWith<$Res> {
+  __$$WatchTrainingsStartedImplCopyWithImpl(_$WatchTrainingsStartedImpl _value,
+      $Res Function(_$WatchTrainingsStartedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isRefresh = freezed,
+  }) {
+    return _then(_$WatchTrainingsStartedImpl(
+      isRefresh: freezed == isRefresh ? _value.isRefresh! : isRefresh,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$WatchTrainingsStartedImpl implements WatchTrainingsStarted {
+  const _$WatchTrainingsStartedImpl({this.isRefresh = false});
+
+  @override
+  @JsonKey()
+  final dynamic isRefresh;
+
+  @override
+  String toString() {
+    return 'TrainingEvent.watchTrainingsStarted(isRefresh: $isRefresh)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$WatchTrainingsStartedImpl &&
+            const DeepCollectionEquality().equals(other.isRefresh, isRefresh));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(isRefresh));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WatchTrainingsStartedImplCopyWith<_$WatchTrainingsStartedImpl>
+      get copyWith => __$$WatchTrainingsStartedImplCopyWithImpl<
+          _$WatchTrainingsStartedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(dynamic isRefresh) started,
+    required TResult Function() trainingDetailsOpened,
+    required TResult Function(int trainingId, int exerciseId, int approachId,
+            int? reps, int? weight, ApproachComplexity? exerciseComplexity)
+        approachDetailsChanged,
+    required TResult Function(int trainingId, int exerciseId, int approachId)
+        approachDeleted,
+    required TResult Function(int trainingId, int exerciseId) approachAdded,
+    required TResult Function(dynamic isRefresh) watchTrainingsStarted,
+  }) {
+    return watchTrainingsStarted(isRefresh);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(dynamic isRefresh)? started,
+    TResult? Function()? trainingDetailsOpened,
+    TResult? Function(int trainingId, int exerciseId, int approachId, int? reps,
+            int? weight, ApproachComplexity? exerciseComplexity)?
+        approachDetailsChanged,
+    TResult? Function(int trainingId, int exerciseId, int approachId)?
+        approachDeleted,
+    TResult? Function(int trainingId, int exerciseId)? approachAdded,
+    TResult? Function(dynamic isRefresh)? watchTrainingsStarted,
+  }) {
+    return watchTrainingsStarted?.call(isRefresh);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(dynamic isRefresh)? started,
+    TResult Function()? trainingDetailsOpened,
+    TResult Function(int trainingId, int exerciseId, int approachId, int? reps,
+            int? weight, ApproachComplexity? exerciseComplexity)?
+        approachDetailsChanged,
+    TResult Function(int trainingId, int exerciseId, int approachId)?
+        approachDeleted,
+    TResult Function(int trainingId, int exerciseId)? approachAdded,
+    TResult Function(dynamic isRefresh)? watchTrainingsStarted,
+    required TResult orElse(),
+  }) {
+    if (watchTrainingsStarted != null) {
+      return watchTrainingsStarted(isRefresh);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Started value) started,
+    required TResult Function(TrainingDetailsOpened value)
+        trainingDetailsOpened,
+    required TResult Function(ApproachDetailsChanged value)
+        approachDetailsChanged,
+    required TResult Function(ApproachDeleted value) approachDeleted,
+    required TResult Function(ApproachAdded value) approachAdded,
+    required TResult Function(WatchTrainingsStarted value)
+        watchTrainingsStarted,
+  }) {
+    return watchTrainingsStarted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Started value)? started,
+    TResult? Function(TrainingDetailsOpened value)? trainingDetailsOpened,
+    TResult? Function(ApproachDetailsChanged value)? approachDetailsChanged,
+    TResult? Function(ApproachDeleted value)? approachDeleted,
+    TResult? Function(ApproachAdded value)? approachAdded,
+    TResult? Function(WatchTrainingsStarted value)? watchTrainingsStarted,
+  }) {
+    return watchTrainingsStarted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Started value)? started,
+    TResult Function(TrainingDetailsOpened value)? trainingDetailsOpened,
+    TResult Function(ApproachDetailsChanged value)? approachDetailsChanged,
+    TResult Function(ApproachDeleted value)? approachDeleted,
+    TResult Function(ApproachAdded value)? approachAdded,
+    TResult Function(WatchTrainingsStarted value)? watchTrainingsStarted,
+    required TResult orElse(),
+  }) {
+    if (watchTrainingsStarted != null) {
+      return watchTrainingsStarted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class WatchTrainingsStarted implements TrainingEvent {
+  const factory WatchTrainingsStarted({final dynamic isRefresh}) =
+      _$WatchTrainingsStartedImpl;
+
+  dynamic get isRefresh;
+  @JsonKey(ignore: true)
+  _$$WatchTrainingsStartedImplCopyWith<_$WatchTrainingsStartedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

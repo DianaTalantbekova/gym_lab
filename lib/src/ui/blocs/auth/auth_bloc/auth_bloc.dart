@@ -30,9 +30,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthState.unauthenticated());
     });
 
-    _userSubscription = authRepo.user.listen(
-      (user) => add(_UserChanged(user)),
-    );
+    // TODO(littlelarge): uncomment
+    // _userSubscription = authRepo.user.listen(
+    //   (user) => add(_UserChanged(user)),
+    // );
   }
 
   final AuthenticationRepository authRepo;
