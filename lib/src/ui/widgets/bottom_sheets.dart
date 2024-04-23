@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gym_labb/di.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
 import 'package:gym_labb/src/domain/entity/training_entity.dart';
 import 'package:gym_labb/src/ui/blocs/workout_bloc/workout_bloc.dart';
-import 'package:gym_labb/src/ui/screens/training/bloc/training_bloc.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
 import '../../infrastructure/resources/app_styles.dart';
@@ -33,7 +33,7 @@ class BottomSheets {
       constraints: const BoxConstraints(maxHeight: 353),
       builder: (context) {
         return BlocProvider(
-          create: (context) => WorkoutBloc(),
+          create: (context) => getIt.get<WorkoutBloc>(),
           child: Builder(builder: (context) {
             return Container(
               clipBehavior: Clip.antiAlias,
@@ -138,15 +138,6 @@ class BottomSheets {
                             listener:
                                 (BuildContext context, WorkoutState state) {
                               if (state.name != null) {
-                                context.read<TrainingBloc>().add(
-                                      TrainingEvent.addNewTraining(
-                                        newTraining: TrainingEntity(
-                                          name: state.name!,
-                                          color: state.color!,
-                                          id: 1,
-                                        ),
-                                      ),
-                                    );
                                 context.pop();
                               }
                             },

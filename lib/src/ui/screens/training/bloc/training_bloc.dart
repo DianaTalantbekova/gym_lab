@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:gym_labb/gen/assets.gen.dart';
+import 'package:gym_labb/src/domain/repository/trainings_repo.dart';
 
 import '../../../../domain/entity/training_entity.dart';
 
@@ -10,7 +13,8 @@ part 'training_event.dart';
 part 'training_state.dart';
 
 class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
-  TrainingBloc() : super(const TrainingState.initial(trainings: [])) {
+  TrainingBloc(this._trainingsRepository)
+      : super(const TrainingState.initial(trainings: [])) {
     on<Started>((event, emit) async {
       emit(state.copyWith(isLoading: !event.isRefresh));
       await Future.delayed(const Duration(seconds: 1)); //firebase
@@ -47,27 +51,20 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
                   ),
                 ],
                 restTime: const Duration(minutes: 2),
-                id: 1,
                 exerciseType: [],
               ),
             ],
           ],
-          id: 0,
         ),
         TrainingEntity(
           name: 'бицепс',
           color: 4289646315,
-          id: 1,
         ),
       ]));
     });
-    on<AddNewTraining>((event, emit) {
-      emit(state.copyWith(trainings: [
-        ...state.trainings,
-        event.newTraining,
-      ]));
-    });
-    on<ApproachDetailsChanged>((event, emit) {
+    on<ApproachDetailsChanged>((event, emit) async {
+      emit(state.copyWith(isLoading: true));
+
       final List<TrainingEntity> trainings =
           List<TrainingEntity>.from(state.trainings);
       final TrainingEntity training = trainings[event.trainingId];
@@ -87,13 +84,21 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
       exercises[event.exerciseId] = exercise.copyWith(approaches: approaches);
       trainings[event.trainingId] = training.copyWith(exercises: exercises);
 
-      emit(state.copyWith(trainings: trainings));
+      final result = await _trainingsRepository
+          .updateTraining(trainings[event.trainingId]);
+
+      result.fold(
+        (f) => emit(state.copyWith(error: f.message, isLoading: false)),
+        (r) => emit(state.copyWith(isLoading: false)),
+      );
     });
     on<TrainingDetailsOpened>((event, emit) async {
       await Future.delayed(const Duration(seconds: 1)); //firebase
       emit(state.copyWith(exercisesLoading: false));
     });
-    on<ApproachDeleted>((event, emit) {
+    on<ApproachDeleted>((event, emit) async {
+      emit(state.copyWith(isLoading: true));
+
       final List<TrainingEntity> trainings =
           List<TrainingEntity>.from(state.trainings);
       final TrainingEntity training = trainings[event.trainingId];
@@ -108,9 +113,17 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
       exercises[event.exerciseId] = exercise.copyWith(approaches: approaches);
       trainings[event.trainingId] = training.copyWith(exercises: exercises);
 
-      emit(state.copyWith(trainings: trainings));
+      final result = await _trainingsRepository
+          .updateTraining(trainings[event.trainingId]);
+
+      result.fold(
+        (f) => emit(state.copyWith(error: f.message, isLoading: false)),
+        (r) => emit(state.copyWith(isLoading: false)),
+      );
     });
-    on<ApproachAdded>((event, emit) {
+    on<ApproachAdded>((event, emit) async {
+      emit(state.copyWith(isLoading: true));
+
       final List<TrainingEntity> trainings =
           List<TrainingEntity>.from(state.trainings);
       final TrainingEntity training = trainings[event.trainingId];
@@ -118,7 +131,7 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
           List<ExerciseEntity>.from(training.exercises!);
       final ExerciseEntity exercise = exercises[event.exerciseId];
       final List<ApproachEntity> approaches =
-          List<ApproachEntity>.from(exercise.approaches!);
+          List<ApproachEntity>.from(exercise.approaches ?? []);
 
       approaches.add(ApproachEntity(
           id: approaches.length,
@@ -130,7 +143,35 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
       exercises[event.exerciseId] = exercise.copyWith(approaches: approaches);
       trainings[event.trainingId] = training.copyWith(exercises: exercises);
 
-      emit(state.copyWith(trainings: trainings));
+      final result = await _trainingsRepository
+          .updateTraining(trainings[event.trainingId]);
+
+      result.fold(
+        (f) => emit(state.copyWith(error: f.message, isLoading: false)),
+        (r) => emit(state.copyWith(isLoading: false)),
+      );
     });
+    on<WatchTrainingsStarted>(
+      (event, emit) {
+        emit(state.copyWith(isLoading: true));
+        _trainingsStreamSubscription?.cancel();
+
+        emit.forEach(_trainingsRepository.watchTrainings(),
+            onData: (trainings) {
+          return trainings.fold(
+              (f) => state.copyWith(error: f.message, isLoading: false),
+              (r) => state.copyWith(trainings: r, isLoading: false));
+        });
+      },
+    );
   }
+
+  @override
+  Future<void> close() async {
+    await _trainingsStreamSubscription?.cancel();
+    return super.close();
+  }
+
+  final TrainingsRepository _trainingsRepository;
+  StreamSubscription<List<TrainingEntity>>? _trainingsStreamSubscription;
 }
