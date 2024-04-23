@@ -291,6 +291,7 @@ class BottomSheets {
         if (value != '0' && controller.text.isEmpty ||
             controller.text.isNotEmpty) {
           controller.text += value;
+
           onChanged(controller.text);
         }
       }
@@ -300,6 +301,11 @@ class BottomSheets {
       if (controller.text.isNotEmpty) {
         controller.text =
             controller.text.substring(0, controller.text.length - 1);
+
+        if (controller.text.isEmpty) {
+          controller.text = '0';
+        }
+
         onChanged(controller.text);
       }
     }
@@ -428,8 +434,10 @@ class BottomSheets {
       },
     ).then(
       (value) {
-        if (controller.text.isEmpty) {
+        if (controller.text.isEmpty || controller.text == '0') {
           controller.text = '1';
+
+          onChanged(controller.text);
         }
 
         onClose();
