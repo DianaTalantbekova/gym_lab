@@ -61,7 +61,7 @@ class AppRouter {
                     parentNavigatorKey: _rootKey,
                     name: AddExerciseScreen.route,
                     path: AddExerciseScreen.route,
-                    builder: (context, state) => const AddExerciseScreen(),
+                    builder: (context, state) => AddExerciseScreen(trainingId: state.extra as int),
                     routes: [
                       GoRoute(
                         parentNavigatorKey: _rootKey,

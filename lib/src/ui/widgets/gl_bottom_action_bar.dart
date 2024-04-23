@@ -10,11 +10,9 @@ import 'buttons.dart';
 class GLBottomActionBar extends StatelessWidget {
   const GLBottomActionBar({
     super.key,
-    required this.onSupersetTap,
     required this.onAddTap,
   });
 
-  final VoidCallback onSupersetTap;
   final VoidCallback onAddTap;
 
   @override
@@ -36,18 +34,7 @@ class GLBottomActionBar extends StatelessWidget {
       ),
       child: SafeArea(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Opacity(
-                opacity: 1,
-                child: GLButton(
-                  text: Strings.of(context).superset,
-                  onPressed: onSupersetTap,
-                ),
-              ),
-            ),
-            const Gap(8),
             Expanded(
               child: Opacity(
                 opacity: 1,

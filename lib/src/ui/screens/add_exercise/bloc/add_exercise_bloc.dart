@@ -58,5 +58,12 @@ class AddExerciseBloc extends Bloc<AddExerciseEvent, AddExerciseState> {
       print(letters.toString());
       emit(state.copyWith(exercisesWithLetters: letters, isLoading: false));
     });
+    on<_Add>((event, emit) async {
+      emit(state.copyWith(addLoading: true));
+      //firebase adding
+      await Future.delayed(const Duration(seconds: 1));
+      emit(state.copyWith(addLoading: false));
+    });
   }
+
 }
