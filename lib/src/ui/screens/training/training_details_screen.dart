@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -291,36 +290,22 @@ class _ExerciseCardState extends State<ExerciseCard> {
                                           : 1,
                                   child: ExerciseField(
                                     onTap: () {
-                                      setState(() {
-                                        fade = !fade;
-                                        selectedIndex = i;
-                                        _select(ApproachDetails.reps);
-                                      });
+                                      _fieldSelected(
+                                          i: i,
+                                          approachDetails:
+                                              ApproachDetails.reps);
 
                                       BottomSheets.showKeyboardModalBottomSheet(
                                           context: context,
                                           onClose: _unselectAll,
                                           controller: repsControllers[i],
                                           onChanged: (value) {
-                                            setState(() {
-                                              repsControllers[i].text = value;
-                                            });
-
-                                            final int intValue;
-
-                                            if (value.isNotEmpty) {
-                                              intValue = int.parse(value);
-                                            } else {
-                                              intValue = 0;
-                                            }
-
-                                            context.read<TrainingBloc>().add(
-                                                ApproachDetailsChanged(
-                                                    trainingId: trainingIndex,
-                                                    exerciseId:
-                                                        widget.exerciseIndex,
-                                                    approachId: i,
-                                                    reps: intValue));
+                                            _onRegularFieldChanged(
+                                              fieldIndex: i,
+                                              context: context,
+                                              changedValue: value,
+                                              fieldType: ApproachDetails.reps,
+                                            );
                                           });
                                     },
                                     controller: repsControllers[i],
@@ -350,36 +335,22 @@ class _ExerciseCardState extends State<ExerciseCard> {
                                           : 1,
                                   child: ExerciseField(
                                     onTap: () {
-                                      setState(() {
-                                        fade = !fade;
-                                        selectedIndex = i;
-                                        _select(ApproachDetails.weight);
-                                      });
+                                      _fieldSelected(
+                                          i: i,
+                                          approachDetails:
+                                              ApproachDetails.weight);
 
                                       BottomSheets.showKeyboardModalBottomSheet(
                                           context: context,
                                           onClose: _unselectAll,
                                           controller: weightControllers[i],
                                           onChanged: (value) {
-                                            setState(() {
-                                              weightControllers[i].text = value;
-                                            });
-
-                                            final int intValue;
-
-                                            if (value.isNotEmpty) {
-                                              intValue = int.parse(value);
-                                            } else {
-                                              intValue = 0;
-                                            }
-
-                                            context.read<TrainingBloc>().add(
-                                                ApproachDetailsChanged(
-                                                    trainingId: trainingIndex,
-                                                    exerciseId:
-                                                        widget.exerciseIndex,
-                                                    approachId: i,
-                                                    weight: intValue));
+                                            _onRegularFieldChanged(
+                                              fieldIndex: i,
+                                              context: context,
+                                              changedValue: value,
+                                              fieldType: ApproachDetails.weight,
+                                            );
                                           });
                                     },
                                     controller: weightControllers[i],
@@ -409,11 +380,10 @@ class _ExerciseCardState extends State<ExerciseCard> {
                                           : 1,
                                   child: ExerciseDifficulty(
                                     onTap: () {
-                                      setState(() {
-                                        fade = !fade;
-                                        selectedIndex = i;
-                                        _select(ApproachDetails.difficulty);
-                                      });
+                                      _fieldSelected(
+                                          i: i,
+                                          approachDetails:
+                                              ApproachDetails.difficulty);
 
                                       BottomSheets
                                           .showDifficultyModalBottomSheet(
@@ -509,6 +479,50 @@ class _ExerciseCardState extends State<ExerciseCard> {
         ],
       ),
     );
+  }
+
+  void _onRegularFieldChanged({
+    required int fieldIndex,
+    required BuildContext context,
+    required String changedValue,
+    required ApproachDetails fieldType,
+  }) {
+    final int intValue;
+
+    intValue = int.parse(changedValue);
+
+    final trainingBloc = context.read<TrainingBloc>();
+
+    setState(() {
+      if (fieldType == ApproachDetails.reps) {
+        repsControllers[fieldIndex].text = changedValue;
+
+        trainingBloc.add(ApproachDetailsChanged(
+            trainingId: trainingIndex,
+            exerciseId: widget.exerciseIndex,
+            approachId: fieldIndex,
+            reps: intValue));
+      } else if (fieldType == ApproachDetails.weight) {
+        weightControllers[fieldIndex].text = changedValue;
+
+        trainingBloc.add(ApproachDetailsChanged(
+            trainingId: trainingIndex,
+            exerciseId: widget.exerciseIndex,
+            approachId: fieldIndex,
+            weight: intValue));
+      }
+    });
+  }
+
+  void _fieldSelected({
+    required int i,
+    required ApproachDetails approachDetails,
+  }) {
+    setState(() {
+      fade = !fade;
+      selectedIndex = i;
+      _select(approachDetails);
+    });
   }
 
   void _select(ApproachDetails approachDetails) {
