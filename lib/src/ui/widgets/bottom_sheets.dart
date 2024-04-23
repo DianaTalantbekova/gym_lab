@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gym_labb/di.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
 import 'package:gym_labb/src/domain/entity/training_entity.dart';
+import 'package:gym_labb/src/infrastructure/l10n/strings.dart';
 import 'package:gym_labb/src/ui/blocs/workout_bloc/workout_bloc.dart';
 
 import '../../infrastructure/resources/app_colors.dart';
@@ -162,7 +163,6 @@ class BottomSheets {
     required TextEditingController controller,
     required ValueChanged<String> onChanged,
   }) {
-    // TODO(littlelarge): add localization
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -326,8 +326,7 @@ class BottomSheets {
                     const Spacer(),
                     RichText(
                       text: TextSpan(
-                        // TODO(littlelarge): add localization
-                        text: "ГОТОВО",
+                        text: Strings.of(context).done,
                         style: AppStyles.jost14Bold,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
@@ -473,7 +472,7 @@ class _DifficultyModalBottomSheetState
             const Gap(16),
             RichText(
               text: TextSpan(
-                text: "ВЫБЕРИТЕ СЛОЖНОСТЬ",
+                text: Strings.of(context).selectDifficulty,
                 style: AppStyles.jost14Bold,
                 recognizer: TapGestureRecognizer()..onTap = () {},
               ),
@@ -503,7 +502,7 @@ class _DifficultyModalBottomSheetState
                       ),
                       const Gap(32),
                       Text(
-                        "Легко",
+                        Strings.of(context).easy,
                         style: AppStyles.jost12,
                       ),
                     ],
@@ -531,7 +530,7 @@ class _DifficultyModalBottomSheetState
                         ),
                         const Gap(32),
                         Text(
-                          "Нормально",
+                          Strings.of(context).normal,
                           style: AppStyles.jost12,
                         ),
                       ],
@@ -558,7 +557,7 @@ class _DifficultyModalBottomSheetState
                       ),
                       const Gap(32),
                       Text(
-                        "Сложно",
+                          Strings.of(context).difficult,
                         style: AppStyles.jost12,
                       ),
                     ],
