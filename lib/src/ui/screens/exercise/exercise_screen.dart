@@ -15,7 +15,7 @@ class ExerciseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GLScaffold(
+    return const GLScaffold(
         // appBar: GLAppBar(
         //   leading: GLIconButton(
         //     icon: Assets.icons.navigation.back.svg(),

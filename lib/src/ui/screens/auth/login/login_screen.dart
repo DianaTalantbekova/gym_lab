@@ -9,7 +9,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_labb/di.dart';
 import 'package:gym_labb/gen/assets.gen.dart';
-import 'package:gym_labb/src/ui/blocs/auth/auth_bloc/auth_bloc.dart';
 import 'package:gym_labb/src/ui/blocs/auth/login_cubit/login_cubit.dart';
 
 import '../../../../infrastructure/l10n/strings.dart';
@@ -113,7 +112,8 @@ class LoginScreen extends StatelessWidget {
                         text: Strings.of(context).signInWithAppleID,
                         icon: SvgPicture.asset(
                           'assets/icons/login/apple.svg',
-                          color: Colors.white,
+                          colorFilter: const ColorFilter.mode(
+                              Colors.white, BlendMode.srcIn),
                         ),
                         onPressed: () {},
                       ),
