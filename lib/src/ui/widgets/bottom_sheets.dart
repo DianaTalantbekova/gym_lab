@@ -147,15 +147,6 @@ class BottomSheets {
                                 },
                                 listener: (_, WorkoutState state) {
                                   if (state.name != null) {
-                                    context.read<TrainingBloc>().add(
-                                          TrainingEvent.addNewTraining(
-                                            newTraining: TrainingEntity(
-                                              name: state.name!,
-                                              color: state.color!,
-                                              id: 1,
-                                            ),
-                                          ),
-                                        );
                                     context.pop();
                                   }
                                 },
@@ -163,15 +154,6 @@ class BottomSheets {
                             ),
                             const Gap(48),
                           ],
-                              );
-                            },
-                            listener:
-                                (BuildContext context, WorkoutState state) {
-                              if (state.name != null) {
-                                context.pop();
-                              }
-                            },
-                          ),
                         ),
                       ),
                     ),
@@ -585,7 +567,7 @@ class _DifficultyModalBottomSheetState
                       ),
                       const Gap(32),
                       Text(
-                          Strings.of(context).difficult,
+                        Strings.of(context).difficult,
                         style: AppStyles.jost12,
                       ),
                     ],
