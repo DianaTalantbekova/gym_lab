@@ -24,7 +24,9 @@ class TrainingScreen extends StatefulWidget {
 class _TrainingScreenState extends State<TrainingScreen> {
   @override
   void initState() {
-    context.read<TrainingBloc>().add(const TrainingEvent.started());
+    context
+        .read<TrainingBloc>()
+        .add(const TrainingEvent.watchTrainingsStarted());
     super.initState();
   }
 
@@ -48,7 +50,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          context.read<TrainingBloc>().add(const TrainingEvent.started(isRefresh: true));
+          context
+              .read<TrainingBloc>()
+              .add(const TrainingEvent.watchTrainingsStarted(isRefresh: true));
         },
         child: Column(
           children: [
@@ -56,24 +60,27 @@ class _TrainingScreenState extends State<TrainingScreen> {
             Expanded(
               child: BlocBuilder<TrainingBloc, TrainingState>(
                 builder: (context, state) {
-                  return state.isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(color: AppColors.blue),
-                        )
-                      : ListView.builder(
-                          itemCount: state.trainings.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                TrainingCard(
-                                  item: state.trainings[index],
-                                  trainingIndex: index,
-                                ),
-                                const Gap(16)
-                              ],
+                  return state.error != null
+                      ? Center(child: Text(state.error!, style: AppStyles.jost24Bold))
+                      : state.isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                  color: AppColors.blue),
+                            )
+                          : ListView.builder(
+                              itemCount: state.trainings.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    TrainingCard(
+                                      item: state.trainings[index],
+                                      trainingIndex: index,
+                                    ),
+                                    const Gap(16)
+                                  ],
+                                );
+                              },
                             );
-                          },
-                        );
                 },
               ),
             ),
