@@ -18,9 +18,10 @@ import '../../widgets/gl_text_form_field.dart';
 import '../exercise/exercise_info_screen.dart';
 
 class AddExerciseScreen extends StatefulWidget {
-  const AddExerciseScreen({super.key});
+  const AddExerciseScreen({super.key, required this.trainingId});
 
   static const String route = "add-exercise";
+  final int trainingId;
 
   @override
   State<AddExerciseScreen> createState() => _AddExerciseScreenState();
@@ -29,6 +30,7 @@ class AddExerciseScreen extends StatefulWidget {
 class _AddExerciseScreenState extends State<AddExerciseScreen>
     with TickerProviderStateMixin {
   late final TabController controller;
+  late final PageController pageController;
 
   List<Map<ExerciseType, String>> tabs(BuildContext context) {
     return [
@@ -45,6 +47,14 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
     super.initState();
     context.read<AddExerciseBloc>().add(const AddExerciseEvent.started());
     controller = TabController(length: 5, vsync: this);
+    pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -108,6 +118,13 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
             ),
             const Gap(16),
             TabBar(
+              onTap: (value) {
+                pageController.animateToPage(
+                  value,
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeInOut,
+                );
+              },
               controller: controller,
               isScrollable: true,
               tabAlignment: TabAlignment.start,
@@ -148,8 +165,11 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
                               CircularProgressIndicator(color: AppColors.blue),
                         )
                       : PageView.builder(
+                          controller: pageController,
+                          onPageChanged: (value) {
+                            controller.animateTo(value);
+                          },
                           itemCount: tabs(context).length,
-                          // physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int tabIndex) {
                             return ListView.builder(
                               padding:
@@ -182,12 +202,16 @@ class _AddExerciseScreenState extends State<AddExerciseScreen>
           ],
         ),
       ),
-      bottomBar: GLBottomActionBar(
-        onSupersetTap: () {
-          // context.pushNamed(ExercisePage.route);
-        },
-        onAddTap: () {
-          // context.pushNamed(ExercisePage.route);
+      bottomBar: BlocBuilder<AddExerciseBloc, AddExerciseState>(
+        builder: (context, state) {
+          return GLBottomActionBar(
+            onAddTap: () {
+              context.read<AddExerciseBloc>().add(
+                    const AddExerciseEvent.add(),
+                  );
+
+            },
+          );
         },
       ),
     );

@@ -17,7 +17,7 @@ import '../../widgets/gl_app_bar.dart';
 import '../../widgets/gl_scaffold.dart';
 import '../add_exercise/add_exercise_screen.dart';
 
-late int trainingIndex;
+late final int trainingIndex;
 
 class TrainingDetailsScreen extends StatefulWidget {
   TrainingDetailsScreen({super.key, required this.trainingId}) {
@@ -62,7 +62,10 @@ class _TrainingDetailsScreenState extends State<TrainingDetailsScreen> {
         action: GLIconButton(
           icon: Assets.icons.add.svg(),
           onTap: () {
-            context.pushNamed(AddExerciseScreen.route);
+            context.pushNamed(
+              AddExerciseScreen.route,
+              extra: widget.trainingId,
+            );
           },
         ),
         title: Text(
@@ -435,7 +438,8 @@ class _ExerciseCardState extends State<ExerciseCard> {
                                                         exerciseId: widget
                                                             .exerciseIndex,
                                                         approachId: i,
-                                                        exerciseComplexity: complexity));
+                                                        exerciseComplexity:
+                                                            complexity));
                                               });
                                     },
                                     controller: complexityControllers[i],

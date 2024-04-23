@@ -24,4 +24,5 @@ class TrainingEvent with _$TrainingEvent {
     required int trainingId,
     required int exerciseId,
   }) = ApproachAdded;
+  // const factory TrainingEvent.addExercises({required List<ExerciseEntity> newExericises}) = AddExercise;
 }
